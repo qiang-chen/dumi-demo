@@ -1,10 +1,10 @@
 ---
 hero:
-  title: 玉麟搭建
+  title: 玉麟宝典
   desc: 嘿，来看下吧
   actions:
     - text: Getting Started
-      link: /react/one-docs
+      link: /api小常识/one-docs
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
     title: Feature 1
