@@ -1,0 +1,32 @@
+
+# 基于Travis自动化部署vue项目起飞🚀
+
+# 指定语言及版本
+language: node_js
+node_js: stable
+
+# 安装项目包
+install:
+  - npm install
+
+# 运行脚本
+script:
+  - npm run build
+
+# 自动化编译推送GitHub
+after_success:
+  - cd ./dist
+  - git init
+  # 这是常规的git操作 可以自定义或者默认即可
+  - git config --global user.name "yulin"
+  - git config --global user.email "1715584439@qq.com"
+  - git add .
+  - git commit -m "auto_push"
+  # ${vue_page}改成自己配置的token名字 vue_page是我的token名字
+  # @github.com后面的内容也是改成自己的 其实就是仓库地址去掉https部分
+  - git push --quiet --force "https://${dumi_study}@github.com/qiang-chen/dumi_demo.git" master:gh-page
+
+# 触发自动化部署的分支
+branches:
+  only:
+    - master
