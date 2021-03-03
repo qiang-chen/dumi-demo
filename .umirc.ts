@@ -2,7 +2,7 @@
  * @description 
  * @author cq
  * @Date 2021-01-06 20:18:38
- * @LastEditTime 2021-01-06 20:25:03
+ * @LastEditTime 2021-03-03 17:40:21
  * @LastEditors cq
  */
 import { defineConfig } from 'dumi';
@@ -20,5 +20,8 @@ export default defineConfig({
       path: 'https://github.com/umijs/dumi',
     }
   ],
+  base: '/dumi_demo',
+  publicPath: '/dumi_demo/',
+  exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
   // more config: https://d.umijs.org/config
 });
