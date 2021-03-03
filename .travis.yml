@@ -24,7 +24,7 @@ after_success:
   - git commit -m "auto_push"
   # ${vue_page}改成自己配置的token名字 vue_page是我的token名字
   # @github.com后面的内容也是改成自己的 其实就是仓库地址去掉https部分
-  - git push --quiet --force "https://${dumi_study}@github.com/qiang-chen/dumi_demo.git" master:gh-page
+  - git push --quiet --force "https://${dumi_study}@github.com/qiang-chen/dumi_demo.git" master:dist-page
 
 # 触发自动化部署的分支
 branches:
