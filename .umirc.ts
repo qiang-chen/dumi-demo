@@ -1,16 +1,18 @@
 /**
- * @description 
+ * @description
  * @author cq
  * @Date 2021-01-06 20:18:38
- * @LastEditTime 2021-03-03 17:40:21
+ * @LastEditTime 2021-03-03 19:59:07
  * @LastEditors cq
  */
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
   title: 'Hello 玉麟',
-  favicon: 'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
-  logo: 'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
+  favicon:
+    'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
+  logo:
+    'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
   outputPath: 'docs-dist',
   mode: 'site',
   navs: [
@@ -18,10 +20,10 @@ export default defineConfig({
     {
       title: 'GitHub',
       path: 'https://github.com/umijs/dumi',
-    }
+    },
   ],
   base: '/dumi_demo',
   publicPath: '/dumi_demo/',
-  exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
+  exportStatic: { htmlSuffix: true },
   // more config: https://d.umijs.org/config
 });
