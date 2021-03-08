@@ -1,18 +1,15 @@
 ---
 nav:
-  title: Btn
-  path: /btn
+  title: Promise
+  path: /promise
   order: 4
 ---
 
-# 我是Btn页面
-Demo:
-
 ```tsx
 import React from 'react';
-import { Btn } from 'dumi-demo';
+import { Promise } from 'dumi-demo';
 
-export default () => <Btn />;
+export default () => <Promise />;
 ```
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
