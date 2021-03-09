@@ -7,6 +7,14 @@ nav:
 
 # 好玩的方法
 
+## 让浏览器变成可输入的模式
+
+```js
+//url访问下面代码
+
+data:text/html, <html contenteditable>
+```
+
 ## 文字模糊的方法
 
 ```css

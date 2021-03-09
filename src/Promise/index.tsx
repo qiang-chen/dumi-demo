@@ -2,7 +2,7 @@
  * @description
  * @author cq
  * @Date 2021-01-07 10:16:08
- * @LastEditTime 2021-03-04 20:15:34
+ * @LastEditTime 2021-03-08 18:43:41
  * @LastEditors cq
  */
 
@@ -10,7 +10,9 @@ import React from 'react';
 import MyPromise from './myPromise';
 
 const promise: any = new MyPromise((resolve: any, reject: any) => {
-  resolve(100);
+  setTimeout(() => {
+    resolve(100);
+  }, 1000);
 });
 
 promise.then((res: any) => {
@@ -18,7 +20,7 @@ promise.then((res: any) => {
 });
 
 const Promise = () => {
-  return <h1>Promise</h1>;
+  return <h1>look</h1>;
 };
 
 export default Promise;
