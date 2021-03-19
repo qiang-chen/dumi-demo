@@ -2,7 +2,7 @@
  * @description
  * @author cq
  * @Date 2021-01-07 10:16:08
- * @LastEditTime 2021-03-18 18:50:09
+ * @LastEditTime 2021-03-18 21:02:17
  * @LastEditors cq
  */
 
@@ -18,6 +18,23 @@ const promise: any = new MyPromise((resolve: any, reject: any) => {
   //    resolve(300);
   //  }, 3000);
 });
+
+function p() {
+  return new MyPromise((resolve, reject) => {
+    setTimeout(() => {
+      reject(2);
+    }, 1000);
+  });
+}
+
+MyPromise.reject(p()).then(
+  (data: any) => {
+    console.log(data);
+  },
+  err => {
+    console.error(err);
+  },
+);
 
 function test(value: any) {
   return new MyPromise((resolve: any, reject: any) => {
@@ -82,14 +99,14 @@ function test4(value: any) {
 //     },
 //   );
 
-promise.race([test2(2), test3(3), test4(1)]).then(
-  (res: any) => {
-    console.log(res);
-  },
-  (err: any) => {
-    console.error(err);
-  },
-);
+// promise.race([test2(2), test3(3), test4(1)]).then(
+//   (res: any) => {
+//     console.log(res);
+//   },
+//   (err: any) => {
+//     console.error(err);
+//   },
+// );
 
 const PromiseMy = () => {
   return <h1>look</h1>;

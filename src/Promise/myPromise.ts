@@ -2,7 +2,7 @@
  * @description
  * @author cq
  * @Date 2021-03-04 16:16:24
- * @LastEditTime 2021-03-18 18:46:46
+ * @LastEditTime 2021-03-18 21:04:06
  * @LastEditors cq
  */
 let flag = false; // 加个开关  防止成功或者失败一起调用
@@ -237,6 +237,59 @@ class MyPromise {
           resolve(element);
         }
       });
+    });
+  }
+  resolve(value: any) {
+    //首先返回一个promise对象
+    // 其实value需要判断是promise对象还是普通值
+    return new MyPromise((resolve: any, reject: any) => {
+      if (value instanceof MyPromise) {
+        value.then(
+          (res: any) => {
+            resolve(res);
+          },
+          (err: any) => {
+            reject(err);
+          },
+        );
+      } else {
+        resolve(value);
+      }
+    });
+  }
+  reject(value: any) {
+    //首先返回一个promise对象
+    // 其实value需要判断是promise对象还是普通值
+    return new MyPromise((resolve: any, reject: any) => {
+      if (value instanceof MyPromise) {
+        value.then(
+          (res: any) => {
+            resolve(res);
+          },
+          (err: any) => {
+            reject(err);
+          },
+        );
+      } else {
+        reject(value);
+      }
+    });
+  }
+
+  static reject(value) {
+    return new MyPromise((resolve: any, reject: any) => {
+      if (value instanceof MyPromise) {
+        value.then(
+          (res: any) => {
+            resolve(res);
+          },
+          (err: any) => {
+            reject(err);
+          },
+        );
+      } else {
+        reject(value);
+      }
     });
   }
 }
