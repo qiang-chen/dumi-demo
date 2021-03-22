@@ -2,39 +2,41 @@
  * @description
  * @author cq
  * @Date 2021-01-07 10:16:08
- * @LastEditTime 2021-03-18 21:02:17
+ * @LastEditTime 2021-03-19 17:42:24
  * @LastEditors cq
  */
 
 import React from 'react';
 import MyPromise from './myPromise';
+import generator from './generator';
 
-const promise: any = new MyPromise((resolve: any, reject: any) => {
-  // setTimeout(() => {
-  //   resolve(100);
-  // }, 1000);
-  //  setTimeout(() => {
-  //    resolve(1000);
-  //    resolve(300);
-  //  }, 3000);
-});
+generator();
 
-function p() {
-  return new MyPromise((resolve, reject) => {
-    setTimeout(() => {
-      reject(2);
-    }, 1000);
-  });
-}
+// const promise: any = new MyPromise((resolve: any, reject: any) => {
+// setTimeout(() => {
+//   resolve(100);
+// }, 1000);
+//  setTimeout(() => {
+//    resolve(1000);
+//    resolve(300);
+//  }, 3000);
+// });
 
-MyPromise.reject(p()).then(
-  (data: any) => {
-    console.log(data);
-  },
-  err => {
-    console.error(err);
-  },
-);
+// function p() {
+//   return new MyPromise((resolve, reject) => {
+//     setTimeout(() => {
+//       reject(2);
+//     }, 2000);
+//   });
+// }
+
+// p().then(res=>{
+//   console.log(res);
+// }).catch(c=>{
+//   console.log(222);
+//   console.error(c,"c");
+
+// })
 
 function test(value: any) {
   return new MyPromise((resolve: any, reject: any) => {

@@ -1,9 +1,11 @@
 ---
 nav:
-  title: Promise
-  path: /promise
+  title: Study
+  path: /study
   order: 4
 ---
+
+# Study
 
 ## promise 封装
 
@@ -307,11 +309,33 @@ class MyPromise {
 }
 ```
 
+## generator 使用
+
+### 下述代码打印什么
+
+```js
+function* read() {
+  let a = yield 'hellow';
+  console.log(a);
+  let b = yield 'word';
+  console.log(b);
+}
+
+const it = read(); //屁都不会打印  到了yield "hellow"就会停止
+// console.log(it.next())
+it.next(); // 执行到了yield "word";
+it.next(); // 声明a 然后 打印 undefined
+it.next(); //声明b 然后打印 undefined
+
+// 加入 第二个it.next(1) 传入值会把这个值传给a
+//第三个同理传给b
+```
+
 ```tsx
 import React from 'react';
-import { Promise } from 'dumi-demo';
+import { Study } from 'dumi-demo';
 
-export default () => <Promise />;
+export default () => <Study />;
 ```
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle

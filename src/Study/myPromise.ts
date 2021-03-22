@@ -2,7 +2,7 @@
  * @description
  * @author cq
  * @Date 2021-03-04 16:16:24
- * @LastEditTime 2021-03-18 21:04:06
+ * @LastEditTime 2021-03-19 17:21:57
  * @LastEditors cq
  */
 let flag = false; // 加个开关  防止成功或者失败一起调用
@@ -276,7 +276,7 @@ class MyPromise {
     });
   }
 
-  static reject(value) {
+  static reject(value: any) {
     return new MyPromise((resolve: any, reject: any) => {
       if (value instanceof MyPromise) {
         value.then(
@@ -290,6 +290,11 @@ class MyPromise {
       } else {
         reject(value);
       }
+    });
+  }
+  catch() {
+    return new MyPromise((resolve, reject) => {
+      reject(this.reason);
     });
   }
 }
