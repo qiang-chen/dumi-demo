@@ -2,7 +2,7 @@
  * @description
  * @author cq
  * @Date 2021-01-06 20:18:38
- * @LastEditTime 2021-03-18 19:54:35
+ * @LastEditTime 2021-03-24 14:42:30
  * @LastEditors cq
  */
 import { defineConfig } from 'dumi';
@@ -22,6 +22,9 @@ export default defineConfig({
       path: 'https://github.com/umijs/dumi',
     },
   ],
+  base: '/dumi-demo',
+  publicPath: '/dumi-demo/',
+  // exportStatic: { htmlSuffix: true},
   // base: '/dumi_demo',
   // publicPath: '/dumi_demo/',
   // exportStatic: { htmlSuffix: true },
