@@ -17,3 +17,4 @@
 .umi-production
 .umi-test
 .env.local
+docs-dist
