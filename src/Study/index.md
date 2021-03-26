@@ -26,7 +26,6 @@ class MyPromise {
     this.onSolveCallback = [];
     this.onRejectCallback = [];
     const resolve = (value: any) => {
-      console.log(this.state, 'resolve');
       if (this.state === 'pedding') {
         this.state = 'fulfilled';
         this.value = value;
@@ -45,7 +44,6 @@ class MyPromise {
   }
   // 接受两个参数  成功回调和失败回调
   then(onFulfilled: any, onRejected: any) {
-    console.log(this.state);
     // 解决同步的执行
     if (this.state == 'fulfilled') {
       onFulfilled(this.value);
