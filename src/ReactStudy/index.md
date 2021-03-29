@@ -18,3 +18,12 @@ import { Context } from 'dumi-demo';
 
 export default () => <Context />;
 ```
+
+## 自定义 form 组件
+
+```tsx
+import React from 'react';
+import { MyForm } from 'dumi-demo';
+
+export default () => <MyForm />;
+```
