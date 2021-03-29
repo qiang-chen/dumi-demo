@@ -2,7 +2,7 @@
  * @description 自定义hook
  * @author cq
  * @Date 2021-03-26 18:30:32
- * @LastEditTime 2021-03-29 16:27:00
+ * @LastEditTime 2021-03-29 17:10:40
  * @LastEditors cq
  */
 import React, { createRef, forwardRef, useRef } from 'react';
@@ -15,20 +15,20 @@ class FormStore {
   }
 
   // 定义一个获取属性的方法
-  getFieldValue(name: any) {
+  getFieldValue = (name: any) => {
     console.log(this, 111);
     return this.stote[name];
-  }
+  };
 
   //设置属性的方法
 
-  setFieldValue(newStore: any) {
+  setFieldValue = (newStore: any) => {
     this.stote = {
       ...this.stote,
       ...newStore,
     };
     //把仓库的数据更新完毕后要带着组件更新  否则页面不会有变化
-  }
+  };
 
   getForm() {
     return {
