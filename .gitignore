@@ -6,6 +6,8 @@
 /yarn-error.log
 /yarn.lock
 /package-lock.json
+/docs-dist
+
 
 # production
 
@@ -17,4 +19,3 @@
 .umi-production
 .umi-test
 .env.local
-docs-dist
