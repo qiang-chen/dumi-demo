@@ -2,7 +2,7 @@
  * @description
  * @author cq
  * @Date 2021-03-26 18:30:21
- * @LastEditTime 2021-03-29 19:51:12
+ * @LastEditTime 2021-03-31 17:40:05
  * @LastEditors cq
  */
 import React, { Component, FC, useContext, useEffect, useReducer } from 'react';
@@ -14,6 +14,7 @@ type FieldProps = {
 };
 
 class Field extends Component<any, FieldProps> {
+  unRegisterEntity: any;
   constructor(props: FieldProps) {
     super(props);
   }
@@ -23,6 +24,11 @@ class Field extends Component<any, FieldProps> {
   componentDidMount() {
     const { registerEntity } = this.context as any;
     registerEntity(this);
+    this.unRegisterEntity = registerEntity;
+  }
+
+  componentWillUnmount() {
+    this.unRegisterEntity();
   }
 
   getCntrolled = () => {

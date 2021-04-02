@@ -19,7 +19,7 @@ import { Context } from 'dumi-demo';
 export default () => <Context />;
 ```
 
-## 自定义 form 组件
+## 手写 rc-form
 
 ```tsx
 import React from 'react';
