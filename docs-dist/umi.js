@@ -487,7 +487,7 @@
         return b;
       }),
       n.d(t, 'MyForm', function() {
-        return R;
+        return L;
       });
     var r = n('q1tI'),
       o = n.n(r),
@@ -612,57 +612,112 @@
       constructor() {
         (this.stote = void 0),
           (this.fieldEntities = void 0),
+          (this.callbacks = void 0),
+          (this.setCallback = e => {
+            this.callbacks = Object(E['a'])(
+              Object(E['a'])({}, this.callbacks),
+              e,
+            );
+          }),
           (this.getFieldValue = e => this.stote[e]),
-          (this.registerEntity = e => {
-            this.fieldEntities = Object(E['a'])(
+          (this.registerEntity = e => (
+            (this.fieldEntities = Object(E['a'])(
               Object(E['a'])({}, this.fieldEntities),
               {},
               { [e.props.name]: e },
-            );
-          }),
+            )),
+            () => {
+              delete this.fieldEntities[e.props.name];
+            }
+          )),
           (this.setFieldValue = e => {
             (this.stote = Object(E['a'])(Object(E['a'])({}, this.stote), e)),
-              console.log(this.stote),
               Object.keys(e).forEach(e => {
                 this.fieldEntities[e].onStoreChange();
               });
           }),
+          (this.validate = () => {
+            var e = [];
+            return (
+              Object.keys(this.fieldEntities).forEach(t => {
+                var n = this.fieldEntities[t],
+                  r = n.props.rules,
+                  o = r && r[0],
+                  i = this.getFieldValue(t);
+                o &&
+                  o.required &&
+                  void 0 === i &&
+                  e.push({ [t]: o.message, value: i });
+              }),
+              e
+            );
+          }),
+          (this.submit = () => {
+            var e = this.callbacks,
+              t = e.onFinish,
+              n = e.onFinishFailed,
+              r = this.validate();
+            0 === r.length
+              ? t && t(Object(E['a'])({}, this.stote))
+              : n && n(r, Object(E['a'])({}, this.stote));
+          }),
           (this.stote = {}),
-          (this.fieldEntities = {});
+          (this.fieldEntities = {}),
+          (this.callbacks = {});
       }
       getForm() {
         return {
           setFieldValue: this.setFieldValue,
           getFieldValue: this.getFieldValue,
           registerEntity: this.registerEntity,
+          submit: this.submit,
+          setCallback: this.setCallback,
         };
       }
     }
-    function x() {
-      var e = Object(r['useRef'])(null);
-      if (!e.current) {
-        var t = new k();
-        e.current = t.getForm();
-      }
-      return [e.current || {}];
+    function x(e) {
+      var t = Object(r['useRef'])(null);
+      if (!t.current)
+        if (e) t.current = e;
+        else {
+          var n = new k();
+          t.current = n.getForm();
+        }
+      return [t.current];
     }
-    var O = o.a.createContext({}),
+    var O = o.a.createContext(null),
       S = O,
-      T = e => {
-        var t = e.children,
-          n = x(),
-          r = Object(w['a'])(n, 1),
-          i = r[0];
-        return o.a.createElement(
-          S.Provider,
-          { value: i },
-          o.a.createElement('form', null, t),
+      T = (e, t) => {
+        var n = e.children,
+          r = e.onFinish,
+          i = e.onFinishFailed,
+          a = e.form,
+          u = x(a),
+          l = Object(w['a'])(u, 1),
+          c = l[0];
+        return (
+          o.a.useImperativeHandle(t, () => c),
+          c.setCallback({ onFinish: r, onFinishFailed: i }),
+          o.a.createElement(
+            S.Provider,
+            { value: c },
+            o.a.createElement(
+              'form',
+              {
+                onSubmit: e => {
+                  e.preventDefault(), c.submit();
+                },
+              },
+              n,
+            ),
+          )
         );
       },
       j = T;
     class A extends r['Component'] {
       constructor(e) {
         super(e),
+          (this.unRegisterEntity = void 0),
           (this.getCntrolled = () => {
             var e = this.context,
               t = e.getFieldValue,
@@ -683,7 +738,10 @@
       componentDidMount() {
         var e = this.context,
           t = e.registerEntity;
-        t(this);
+        t(this), (this.unRegisterEntity = t);
+      }
+      componentWillUnmount() {
+        this.unRegisterEntity();
       }
       render() {
         var e = this.props.children;
@@ -691,44 +749,52 @@
       }
     }
     A.contextType = S;
-    var C = A;
-    j.useForm = x;
-    var I = j,
-      P = n('X0eU'),
-      _ = n.n(P);
-    function R() {
-      var e = () => {
-        alert();
-      };
+    var C = A,
+      I = o.a.forwardRef(j);
+    I.useForm = x;
+    var P = I,
+      _ = n('X0eU'),
+      R = n.n(_),
+      M = { required: !0, message: '\u8bf7\u8f93\u5165\u59d3\u540d\uff01' },
+      N = { required: !0, message: '\u8bf7\u8f93\u5165\u5bc6\u7801\uff01' };
+    function L() {
+      var e = P.useForm(),
+        t = Object(w['a'])(e, 1),
+        n = t[0];
+      Object(r['useEffect'])(() => {
+        console.log(n), n.setFieldValue({ userName: '\u9ed8\u8ba4\u503c' });
+      }, []);
+      var i = e => {
+          console.log('onFinish', e);
+        },
+        a = (e, t) => {
+          console.log('onFinishFailed', e, t);
+        };
       return o.a.createElement(
-        I,
-        null,
+        P,
+        { onFinish: i, onFinishFailed: a, form: n },
         o.a.createElement(
           'div',
-          { className: _.a.form },
+          { className: R.a.form },
           o.a.createElement(
             C,
-            { name: 'userName' },
+            { name: 'userName', rules: [M] },
             o.a.createElement('input', {
-              className: _.a.input,
+              className: R.a.input,
               placeholder: 'userName',
               type: 'text',
             }),
           ),
           o.a.createElement(
             C,
-            { name: 'possword' },
+            { name: 'possword', rules: [N] },
             o.a.createElement('input', {
-              className: _.a.input,
+              className: R.a.input,
               placeholder: 'possword',
               type: 'text',
             }),
           ),
-          o.a.createElement(
-            'button',
-            { className: _.a.input, onClick: e },
-            '\u63d0\u4ea4',
-          ),
+          o.a.createElement('button', { className: R.a.input }, '\u63d0\u4ea4'),
         ),
       );
     }
@@ -8225,17 +8291,17 @@
             { className: 'markdown' },
             o.a.createElement(
               'h2',
-              { id: '\u81ea\u5b9a\u4e49-form-\u7ec4\u4ef6' },
+              { id: '\u624b\u5199-rc-form' },
               o.a.createElement(
                 i['AnchorLink'],
                 {
-                  to: '#\u81ea\u5b9a\u4e49-form-\u7ec4\u4ef6',
+                  to: '#\u624b\u5199-rc-form',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              '\u81ea\u5b9a\u4e49 form \u7ec4\u4ef6',
+              '\u624b\u5199 rc-form',
             ),
           ),
           o.a.createElement(
@@ -27730,7 +27796,7 @@
               exact: !0,
               meta: {
                 filePath: 'src/ReactStudy/index.md',
-                updatedTime: 1617008598e3,
+                updatedTime: 1617359106e3,
                 componentName: 'ReactStudy',
                 nav: { title: 'ReactStudy', path: '/ReactStudy', order: 5 },
                 slugs: [
@@ -27742,8 +27808,8 @@
                   },
                   {
                     depth: 2,
-                    value: '\u81ea\u5b9a\u4e49 form \u7ec4\u4ef6',
-                    heading: '\u81ea\u5b9a\u4e49-form-\u7ec4\u4ef6',
+                    value: '\u624b\u5199 rc-form',
+                    heading: '\u624b\u5199-rc-form',
                   },
                 ],
                 title: 'react-study',
