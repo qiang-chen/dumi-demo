@@ -2,7 +2,7 @@
  * @description 自定义hook
  * @author cq
  * @Date 2021-03-26 18:30:32
- * @LastEditTime 2021-04-02 18:16:59
+ * @LastEditTime 2021-04-06 14:37:01
  * @LastEditors cq
  */
 import React, { createRef, forwardRef, useRef } from 'react';
@@ -100,11 +100,15 @@ class FormStore {
   }
 }
 
-export default function useForm() {
+export default function useForm(form) {
   const formRef = useRef(null);
   if (!formRef.current) {
-    const FormFn = new FormStore();
-    formRef.current = FormFn.getForm() as any;
+    if (form) {
+      formRef.current = form;
+    } else {
+      const FormFn = new FormStore();
+      formRef.current = FormFn.getForm() as any;
+    }
   }
-  return [formRef.current || {}];
+  return [formRef.current];
 }

@@ -2,11 +2,11 @@
  * @description
  * @author cq
  * @Date 2021-03-28 21:39:22
- * @LastEditTime 2021-03-29 19:48:05
+ * @LastEditTime 2021-04-06 14:45:43
  * @LastEditors cq
  */
 import React from 'react';
 
-const FieldContext = React.createContext({});
+const FieldContext = React.createContext(null);
 
 export default FieldContext;
