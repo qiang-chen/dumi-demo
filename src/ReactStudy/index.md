@@ -125,9 +125,11 @@ export default (...middle) => {
 
     const midApi = {
       getState: store.getState,
+      // 写成函数是因为多个中间件形成的作用域互不影响
       dispatch: action => dispatch(action),
     };
 
+    // 先把中间件执行一遍 把所需要的参数 getState dispatch 传进去
     const middlewareChain = middle.map(middleware => middleware(midApi));
     // 重新赋值一个函数
     // 每次执行dispatch都要把所有的dispatch都执行一遍
@@ -149,5 +151,48 @@ function compose(...funcs) {
     return funcs[0];
   }
   return funcs.reduce((a, b) => (...args) => a(b(...args)));
+}
+```
+
+## redux-thunk
+
+```js
+function thunk({ dispatch, getState }) {
+  return next => action => {
+    // action 数据类型是？对象 | 函数
+    if (typeof action === 'function') {
+      return action(dispatch, getState);
+    }
+    return next(action);
+  };
+}
+```
+
+## redux-logger
+
+```js
+function logger({ dispatch, getState }) {
+  return next => action => {
+    // next 就是层传进来的dispatch
+    // action 就是要执行的动作
+    console.log(`next`, next);
+    console.log('action', action);
+    console.log('++++++++++++++++++++++++++');
+
+    console.log(action.type + '执行了！！！');
+
+    const prevState = getState();
+    console.log('prev state', prevState);
+
+    // todo  执行玩新的dispatch在拿getState就是最新的值了
+    const returnValue = next(action);
+
+    const nextState = getState();
+    console.log('cur state', nextState);
+
+    console.log('++++++++++++++++++++++++++');
+
+    return returnValue;
+  };
 }
 ```
