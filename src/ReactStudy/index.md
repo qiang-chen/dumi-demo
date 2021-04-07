@@ -70,3 +70,84 @@ console.log(compose(f1, f2, f3)('omg'));
 
 - reducer 就是一个纯函数，接受旧的 state 和 action 返回新的 state （可以联想 reduce 方法）
 - 纯函数的目的是为了结果好预测
+
+## 只支持同步的 redux
+
+```js
+export default function createStore(reducer) {
+  let curState;
+  let curListen = [];
+
+  function getState(params) {
+    return curState;
+  }
+
+  function dispatch(action) {
+    curState = reducer(curState, action);
+    curListen.forEach(item => item());
+  }
+
+  function subscribe(listen) {
+    curListen.push(listen);
+    // 取消订阅
+    return () => {
+      const index = curListen.findIndex(el => el === listen);
+      curListen.splice(index, 1);
+    };
+  }
+
+  // 手动触发一次dispatch派发初始值
+
+  dispatch({
+    type: '随机字符串',
+  });
+
+  return {
+    getState,
+    dispatch,
+    subscribe,
+  };
+}
+```
+
+## applyMiddleware 的刨析
+
+### applyMiddleware 的本质就是利用中间件增强 dispatch 的扩展性
+
+```js
+export default (...middle) => {
+  return createStore => reducer => {
+    //先拿到我们原来的store
+    const store = createStore(reducer);
+    let dispatch = store.dispatch; //加强版的dispatch默认值取之前的dispatch
+
+    // todo 修改一份支持异步请求的dispatch
+
+    const midApi = {
+      getState: store.getState,
+      dispatch: action => dispatch(action),
+    };
+
+    const middlewareChain = middle.map(middleware => middleware(midApi));
+    // 重新赋值一个函数
+    // 每次执行dispatch都要把所有的dispatch都执行一遍
+    dispatch = compose(...middlewareChain)(store.dispatch);
+
+    return {
+      ...store,
+      dispatch,
+    };
+  };
+};
+
+// 聚合执行
+function compose(...funcs) {
+  if (funcs.length === 0) {
+    return arg => arg;
+  }
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+  return funcs.reduce((a, b) => (...args) => a(b(...args)));
+}
+```
