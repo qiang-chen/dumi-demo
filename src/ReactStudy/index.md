@@ -66,12 +66,27 @@ function compose(...funcs) {
 console.log(compose(f1, f2, f3)('omg'));
 ```
 
+### 柯里化 currying
+
+```js
+function currying(a, b) {
+  return a + b;
+}
+
+function fn(params) {
+  return currying => params + currying;
+}
+
+console.log(currying(1, 2));
+console.log(fn(1)(2));
+```
+
 ### 什么是 reducer
 
 - reducer 就是一个纯函数，接受旧的 state 和 action 返回新的 state （可以联想 reduce 方法）
 - 纯函数的目的是为了结果好预测
 
-## 只支持同步的 redux
+### 只支持同步的 redux
 
 ```js
 export default function createStore(reducer) {
@@ -110,7 +125,7 @@ export default function createStore(reducer) {
 }
 ```
 
-## applyMiddleware 的刨析
+### applyMiddleware 的刨析
 
 ### applyMiddleware 的本质就是利用中间件增强 dispatch 的扩展性
 
@@ -154,7 +169,40 @@ function compose(...funcs) {
 }
 ```
 
-## redux-thunk
+### combineReducers 的刨析
+
+```js
+function combineReducers(reducers) {
+  return (state = {}, action) => {
+    let nextState = {};
+    let ishas = false;
+    for (const key in reducers) {
+      const reducer = reducers[key];
+      nextState[key] = reducer(state[key], action);
+      ishas = ishas || nextState[key] !== state[key];
+    }
+    // 为了防止state的改变需要区分下长度  比如{a:1,b:2}变成{a:1}
+    ishas =
+      ishas || Object.keys(nextState).length !== Object.keys(state).length;
+    return ishas ? nextState : state;
+  };
+}
+```
+
+### bindActionCreators 的刨析
+
+```js
+function bindActionCreators(creators, dispatch) {
+  for (const key in creators) {
+    const fn = creators[key];
+    // fn(dispatch)
+    creators[key] = () => dispatch(fn());
+  }
+  return creators;
+}
+```
+
+### redux-thunk
 
 ```js
 function thunk({ dispatch, getState }) {
@@ -168,7 +216,7 @@ function thunk({ dispatch, getState }) {
 }
 ```
 
-## redux-logger
+### redux-logger
 
 ```js
 function logger({ dispatch, getState }) {
@@ -194,5 +242,133 @@ function logger({ dispatch, getState }) {
 
     return returnValue;
   };
+}
+```
+
+## react-redux 相关方法
+
+### Provider 方法
+
+```js
+// 通过Context传递store
+// *step1 创建一个Context对象
+const Context = React.createContext();
+// *step2 通过Provider组件传递value（store）
+export function Provider({ store, children }) {
+  return <Context.Provider value={store}>{children}</Context.Provider>;
+}
+```
+
+### connect 方法
+
+```js
+// hoc 函数，参数是组件，返回值是个新组件
+export const connect = (
+  mapStateToProps = state => state,
+  mapDispatchToProps,
+) => WrappedComponent => props => {
+  const store = useContext(Context);
+  const { getState, dispatch, subscribe } = store;
+  // store state
+  const stateProps = mapStateToProps(getState());
+
+  let dispatchProps = { dispatch };
+
+  if (typeof mapDispatchToProps === 'object') {
+    dispatchProps = bindActionCreators(mapDispatchToProps, dispatch);
+  } else if (typeof mapDispatchToProps === 'function') {
+    dispatchProps = mapDispatchToProps(dispatch);
+  }
+  // 让函数强制更新的方法
+  // const [, forceUpdate] = useReducer(x => x + 1, 0);
+  // const [, forceUpdate] = useState({});
+
+  const forceUpdate = useForceUpdate();
+  // * useEffect _ _  DOM变更  effect执行(订阅)
+  // * useLayoutEffect __   DOM变更-effect执行(订阅)
+
+  // 订阅
+  //
+
+  useLayoutEffect(() => {
+    //有订阅 一定要有取消订阅
+    const unsubscribe = store.subscribe(() => {
+      // todo 让函数组件更新
+      forceUpdate();
+    });
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [store]);
+
+  return <WrappedComponent {...props} {...stateProps} {...dispatchProps} />;
+};
+```
+
+### 自定义 hooks 刷新方法 useForceUpdate
+
+```js
+function useForceUpdate() {
+  const [state, setState] = useState(0);
+  const update = useCallback(() => {
+    setState(prev => prev + 1);
+  }, []);
+
+  return update;
+}
+```
+
+### useSelector 方法
+
+```js
+export function useSelector(selector) {
+  const store = useStore();
+  const { getState } = store;
+
+  const selectState = selector(getState());
+
+  const forceUpdate = useForceUpdate();
+  // * useEffect _ _  DOM变更  effect执行(订阅)
+  // * useLayoutEffect __   DOM变更-effect执行(订阅)
+
+  // 订阅
+  //
+
+  useLayoutEffect(() => {
+    //有订阅 一定要有取消订阅
+    const unsubscribe = store.subscribe(() => {
+      // todo 让函数组件更新
+      forceUpdate();
+    });
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [store]);
+
+  return selectState;
+}
+```
+
+### useStore 方法
+
+```js
+function useStore() {
+  const store = useContext(Context);
+  return store;
+}
+```
+
+### useDispatch 方法
+
+```js
+export function useDispatch() {
+  const store = useStore();
+  return store.dispatch;
 }
 ```

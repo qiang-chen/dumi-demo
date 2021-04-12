@@ -8230,8 +8230,9 @@
       o = n.n(r),
       i = n('dEAq'),
       a = n('0zqC'),
-      u = o.a.memo(n('Rsk4').default['ReactStudy-demo'].component),
-      l = o.a.memo(n('Rsk4').default['ReactStudy-demo-1'].component);
+      u = n('ZpkN'),
+      l = o.a.memo(n('Rsk4').default['ReactStudy-demo'].component),
+      c = o.a.memo(n('Rsk4').default['ReactStudy-demo-1'].component);
     t['default'] = function() {
       return o.a.createElement(
         o.a.Fragment,
@@ -8284,7 +8285,7 @@
           o.a.createElement(
             a['default'],
             n('Rsk4').default['ReactStudy-demo'].previewerProps,
-            o.a.createElement(u, null),
+            o.a.createElement(l, null),
           ),
           o.a.createElement(
             'div',
@@ -8307,7 +8308,158 @@
           o.a.createElement(
             a['default'],
             n('Rsk4').default['ReactStudy-demo-1'].previewerProps,
-            o.a.createElement(l, null),
+            o.a.createElement(c, null),
+          ),
+          o.a.createElement(
+            'div',
+            { className: 'markdown' },
+            o.a.createElement(
+              'h2',
+              { id: 'redux-\u6e90\u7801\u5228\u6790' },
+              o.a.createElement(
+                i['AnchorLink'],
+                {
+                  to: '#redux-\u6e90\u7801\u5228\u6790',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'redux \u6e90\u7801\u5228\u6790',
+            ),
+            o.a.createElement(
+              'h3',
+              { id: '\u805a\u5408\u6a21\u5f0f-compose-\u51fd\u6570' },
+              o.a.createElement(
+                i['AnchorLink'],
+                {
+                  to: '#\u805a\u5408\u6a21\u5f0f-compose-\u51fd\u6570',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              '\u805a\u5408\u6a21\u5f0f compose \u51fd\u6570',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                "function f1(params) {\n  console.log(params, 'f1');\n  return params;\n}\nfunction f2(params) {\n  console.log(params, 'f2');\n  return params;\n}\nfunction f3(params) {\n  console.log(params, 'f3');\n  return params;\n}\n\n// f1(f2(f3(\"omg\")))\n\nfunction compose(...funcs) {\n  console.log(funcs);\n  if (funcs.length === 0) {\n    return arg => arg;\n  }\n\n  if (funcs.length === 1) {\n    return funcs[0];\n  }\n\n  return funcs.reduce((pre, cur) => {\n    return (...arg) => pre(cur(...arg));\n  });\n}\n\nconsole.log(compose(f1, f2, f3)('omg'));\n",
+              lang: 'js',
+            }),
+            o.a.createElement(
+              'h3',
+              { id: '\u4ec0\u4e48\u662f-reducer' },
+              o.a.createElement(
+                i['AnchorLink'],
+                {
+                  to: '#\u4ec0\u4e48\u662f-reducer',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              '\u4ec0\u4e48\u662f reducer',
+            ),
+            o.a.createElement(
+              'ul',
+              null,
+              o.a.createElement(
+                'li',
+                null,
+                'reducer \u5c31\u662f\u4e00\u4e2a\u7eaf\u51fd\u6570\uff0c\u63a5\u53d7\u65e7\u7684 state \u548c action \u8fd4\u56de\u65b0\u7684 state \uff08\u53ef\u4ee5\u8054\u60f3 reduce \u65b9\u6cd5\uff09',
+              ),
+              o.a.createElement(
+                'li',
+                null,
+                '\u7eaf\u51fd\u6570\u7684\u76ee\u7684\u662f\u4e3a\u4e86\u7ed3\u679c\u597d\u9884\u6d4b',
+              ),
+            ),
+            o.a.createElement(
+              'h2',
+              { id: '\u53ea\u652f\u6301\u540c\u6b65\u7684-redux' },
+              o.a.createElement(
+                i['AnchorLink'],
+                {
+                  to: '#\u53ea\u652f\u6301\u540c\u6b65\u7684-redux',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              '\u53ea\u652f\u6301\u540c\u6b65\u7684 redux',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                "export default function createStore(reducer) {\n  let curState;\n  let curListen = [];\n\n  function getState(params) {\n    return curState;\n  }\n\n  function dispatch(action) {\n    curState = reducer(curState, action);\n    curListen.forEach(item => item());\n  }\n\n  function subscribe(listen) {\n    curListen.push(listen);\n    // \u53d6\u6d88\u8ba2\u9605\n    return () => {\n      const index = curListen.findIndex(el => el === listen);\n      curListen.splice(index, 1);\n    };\n  }\n\n  // \u624b\u52a8\u89e6\u53d1\u4e00\u6b21dispatch\u6d3e\u53d1\u521d\u59cb\u503c\n\n  dispatch({\n    type: '\u968f\u673a\u5b57\u7b26\u4e32',\n  });\n\n  return {\n    getState,\n    dispatch,\n    subscribe,\n  };\n}\n",
+              lang: 'js',
+            }),
+            o.a.createElement(
+              'h2',
+              { id: 'applymiddleware-\u7684\u5228\u6790' },
+              o.a.createElement(
+                i['AnchorLink'],
+                {
+                  to: '#applymiddleware-\u7684\u5228\u6790',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'applyMiddleware \u7684\u5228\u6790',
+            ),
+            o.a.createElement(
+              'h3',
+              {
+                id:
+                  'applymiddleware-\u7684\u672c\u8d28\u5c31\u662f\u5229\u7528\u4e2d\u95f4\u4ef6\u589e\u5f3a-dispatch-\u7684\u6269\u5c55\u6027',
+              },
+              o.a.createElement(
+                i['AnchorLink'],
+                {
+                  to:
+                    '#applymiddleware-\u7684\u672c\u8d28\u5c31\u662f\u5229\u7528\u4e2d\u95f4\u4ef6\u589e\u5f3a-dispatch-\u7684\u6269\u5c55\u6027',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'applyMiddleware \u7684\u672c\u8d28\u5c31\u662f\u5229\u7528\u4e2d\u95f4\u4ef6\u589e\u5f3a dispatch \u7684\u6269\u5c55\u6027',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                'export default (...middle) => {\n  return createStore => reducer => {\n    //\u5148\u62ff\u5230\u6211\u4eec\u539f\u6765\u7684store\n    const store = createStore(reducer);\n    let dispatch = store.dispatch; //\u52a0\u5f3a\u7248\u7684dispatch\u9ed8\u8ba4\u503c\u53d6\u4e4b\u524d\u7684dispatch\n\n    // todo \u4fee\u6539\u4e00\u4efd\u652f\u6301\u5f02\u6b65\u8bf7\u6c42\u7684dispatch\n\n    const midApi = {\n      getState: store.getState,\n      // \u5199\u6210\u51fd\u6570\u662f\u56e0\u4e3a\u591a\u4e2a\u4e2d\u95f4\u4ef6\u5f62\u6210\u7684\u4f5c\u7528\u57df\u4e92\u4e0d\u5f71\u54cd\n      dispatch: action => dispatch(action),\n    };\n\n    // \u5148\u628a\u4e2d\u95f4\u4ef6\u6267\u884c\u4e00\u904d \u628a\u6240\u9700\u8981\u7684\u53c2\u6570 getState dispatch \u4f20\u8fdb\u53bb\n    const middlewareChain = middle.map(middleware => middleware(midApi));\n    // \u91cd\u65b0\u8d4b\u503c\u4e00\u4e2a\u51fd\u6570\n    // \u6bcf\u6b21\u6267\u884cdispatch\u90fd\u8981\u628a\u6240\u6709\u7684dispatch\u90fd\u6267\u884c\u4e00\u904d\n    dispatch = compose(...middlewareChain)(store.dispatch);\n\n    return {\n      ...store,\n      dispatch,\n    };\n  };\n};\n\n// \u805a\u5408\u6267\u884c\nfunction compose(...funcs) {\n  if (funcs.length === 0) {\n    return arg => arg;\n  }\n  if (funcs.length === 1) {\n    return funcs[0];\n  }\n  return funcs.reduce((a, b) => (...args) => a(b(...args)));\n}\n',
+              lang: 'js',
+            }),
+            o.a.createElement(
+              'h2',
+              { id: 'redux-thunk' },
+              o.a.createElement(
+                i['AnchorLink'],
+                { to: '#redux-thunk', 'aria-hidden': 'true', tabIndex: -1 },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'redux-thunk',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                "function thunk({ dispatch, getState }) {\n  return next => action => {\n    // action \u6570\u636e\u7c7b\u578b\u662f\uff1f\u5bf9\u8c61 | \u51fd\u6570\n    if (typeof action === 'function') {\n      return action(dispatch, getState);\n    }\n    return next(action);\n  };\n}\n",
+              lang: 'js',
+            }),
+            o.a.createElement(
+              'h2',
+              { id: 'redux-logger' },
+              o.a.createElement(
+                i['AnchorLink'],
+                { to: '#redux-logger', 'aria-hidden': 'true', tabIndex: -1 },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'redux-logger',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                "function logger({ dispatch, getState }) {\n  return next => action => {\n    // next \u5c31\u662f\u5c42\u4f20\u8fdb\u6765\u7684dispatch\n    // action \u5c31\u662f\u8981\u6267\u884c\u7684\u52a8\u4f5c\n    console.log(`next`, next);\n    console.log('action', action);\n    console.log('++++++++++++++++++++++++++');\n\n    console.log(action.type + '\u6267\u884c\u4e86\uff01\uff01\uff01');\n\n    const prevState = getState();\n    console.log('prev state', prevState);\n\n    // todo  \u6267\u884c\u73a9\u65b0\u7684dispatch\u5728\u62ffgetState\u5c31\u662f\u6700\u65b0\u7684\u503c\u4e86\n    const returnValue = next(action);\n\n    const nextState = getState();\n    console.log('cur state', nextState);\n\n    console.log('++++++++++++++++++++++++++');\n\n    return returnValue;\n  };\n}\n",
+              lang: 'js',
+            }),
           ),
         ),
       );
@@ -27796,7 +27948,7 @@
               exact: !0,
               meta: {
                 filePath: 'src/ReactStudy/index.md',
-                updatedTime: 1617359106e3,
+                updatedTime: 1617796815e3,
                 componentName: 'ReactStudy',
                 nav: { title: 'ReactStudy', path: '/ReactStudy', order: 5 },
                 slugs: [
@@ -27811,6 +27963,40 @@
                     value: '\u624b\u5199 rc-form',
                     heading: '\u624b\u5199-rc-form',
                   },
+                  {
+                    depth: 2,
+                    value: 'redux \u6e90\u7801\u5228\u6790',
+                    heading: 'redux-\u6e90\u7801\u5228\u6790',
+                  },
+                  {
+                    depth: 3,
+                    value: '\u805a\u5408\u6a21\u5f0f compose \u51fd\u6570',
+                    heading: '\u805a\u5408\u6a21\u5f0f-compose-\u51fd\u6570',
+                  },
+                  {
+                    depth: 3,
+                    value: '\u4ec0\u4e48\u662f reducer',
+                    heading: '\u4ec0\u4e48\u662f-reducer',
+                  },
+                  {
+                    depth: 2,
+                    value: '\u53ea\u652f\u6301\u540c\u6b65\u7684 redux',
+                    heading: '\u53ea\u652f\u6301\u540c\u6b65\u7684-redux',
+                  },
+                  {
+                    depth: 2,
+                    value: 'applyMiddleware \u7684\u5228\u6790',
+                    heading: 'applymiddleware-\u7684\u5228\u6790',
+                  },
+                  {
+                    depth: 3,
+                    value:
+                      'applyMiddleware \u7684\u672c\u8d28\u5c31\u662f\u5229\u7528\u4e2d\u95f4\u4ef6\u589e\u5f3a dispatch \u7684\u6269\u5c55\u6027',
+                    heading:
+                      'applymiddleware-\u7684\u672c\u8d28\u5c31\u662f\u5229\u7528\u4e2d\u95f4\u4ef6\u589e\u5f3a-dispatch-\u7684\u6269\u5c55\u6027',
+                  },
+                  { depth: 2, value: 'redux-thunk', heading: 'redux-thunk' },
+                  { depth: 2, value: 'redux-logger', heading: 'redux-logger' },
                 ],
                 title: 'react-study',
                 group: {
