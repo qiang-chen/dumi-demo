@@ -2,7 +2,7 @@
  * @description 自定义hook
  * @author cq
  * @Date 2021-03-26 18:30:32
- * @LastEditTime 2021-04-06 14:37:01
+ * @LastEditTime 2021-04-12 17:14:37
  * @LastEditors cq
  */
 import React, { createRef, forwardRef, useRef } from 'react';
@@ -34,11 +34,11 @@ class FormStore {
   registerEntity = (entity: any) => {
     this.fieldEntities = {
       ...this.fieldEntities,
-      [entity.props.name]: entity,
+      [entity?.props?.name]: entity,
     };
     //销毁
     return () => {
-      delete this.fieldEntities[entity.props.name];
+      delete this.fieldEntities[entity?.props?.name];
     };
   };
 
@@ -62,7 +62,7 @@ class FormStore {
     // 遍历this.store
     Object.keys(this.fieldEntities).forEach(key => {
       const entity = this.fieldEntities[key];
-      const { rules } = entity.props;
+      const { rules } = entity.props || {};
       const rule = rules && rules[0];
       const value = this.getFieldValue(key);
 
