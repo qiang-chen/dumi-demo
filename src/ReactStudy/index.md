@@ -372,3 +372,36 @@ export function useDispatch() {
   return store.dispatch;
 }
 ```
+
+## react-router
+
+### 牛刀小试
+
+- react-router 渲染方式有三种 优先级是 children>component>render
+  > > 其中 children 无需匹配 每个页面都能加载
+- component 不能使用函数加载
+  > > 原因是渲染 component 的时候会调用 React.createElement，如果使用下面这种匿名函数的形式每次都会生成一个新的匿名的函数，导致生成的组件的 type 总是不相同，这个时候会产生重复的卸载和挂载
+
+```js
+<div className="App">
+  <BrowserRouter>
+    <nav>
+      <Link to="/">首页</Link>
+      <Link to="/user">用户中心</Link>
+    </nav>
+    <button onClick={handClick}>{state}</button>
+    {/* 根路由要添加exact，实现精确匹配 */}
+    <Route
+      exact
+      path="/"
+      // children 是不管是否匹配都会出现
+      // children={() => <div>我是children渲染结果</div>}
+      // render={() => <div>我是render渲染结果</div>}
+      // component={() => <HomePage/>} 错误写法
+      component={HomePage}
+    />
+    <Route path="/user" component={UserPage} />
+    <Route render={() => <h1>404</h1>} />
+  </BrowserRouter>
+</div>
+```
