@@ -792,3 +792,124 @@ export function useParams() {
   return match ? match.params : {};
 }
 ```
+
+## react 几个基础 API 的小案例
+
+### jsx 渲染
+
+- 在 react 17 之前如果使用 jsx 语法就必须引用 react 17 后的则不需要引用
+
+> 原因是 React 16 的 babel-loader 会预编译 JSX 为 React.createElement(...)React 17 中的 JSX 转换不会将 JSX 转换为 React.createElement，而是自动从 React 的 package 中引入新的入口函数并调用。另外此次升级不会改变 JSX 语法，旧的 JSX 转换也将继续工作。
+
+### react-dom 之 render 简易版实现
+
+```js
+// vnode 虚拟dom节点
+// node 真实dom节点
+// container  node是node节点
+function render(vnode, container) {
+  console.log('vnode', vnode, container); //sy-log
+
+  // step1 : vnode->node
+  const node = createNode(vnode);
+  //step2: container.appnedChild(node)
+  container.appendChild(node);
+}
+
+function createNode(vnode) {
+  let node = null;
+  // todo vnode->node
+
+  const { type } = vnode;
+  if (typeof type === 'string') {
+    // 原生标签
+    node = updateHostComponent(vnode);
+  } else if (typeof type === 'function') {
+    // 函数组件或者类组件
+    node = type.prototype.isReactComponent
+      ? updateClassComponent(vnode)
+      : updateFunctionComponent(vnode);
+  } else {
+    node = createFragmentComponent(vnode);
+  }
+
+  return node;
+}
+
+//原生标签节点处理
+function updateHostComponent(vnode) {
+  const { type, props } = vnode;
+  let node = document.createElement(type);
+
+  if (typeof props.children === 'string') {
+    let childText = document.createTextNode(props.children);
+    node.appendChild(childText);
+  } else {
+    reconcileChildren(props.children, node);
+  }
+
+  updateNode(node, props);
+  return node;
+}
+
+// 处理Fragment节点
+function createFragmentComponent(vnode) {
+  const node = document.createDocumentFragment();
+  reconcileChildren(vnode.props.children, node);
+  return node;
+}
+
+// 函数组件
+// 执行函数
+function updateFunctionComponent(vnode) {
+  const { type, props } = vnode;
+
+  const vvnode = type(props);
+
+  const node = createNode(vvnode);
+  return node;
+}
+
+// 类组件
+// 先实例化 再执行render函数
+function updateClassComponent(vnode) {
+  const { type, props } = vnode;
+  const instance = new type(props);
+  const vvnode = instance.render();
+  const node = createNode(vvnode);
+  return node;
+}
+
+// 更新属性
+function updateNode(node, nextVal) {
+  Object.keys(nextVal)
+    .filter(k => k !== 'children')
+    .forEach(k => {
+      node[k] = nextVal[k];
+    });
+}
+
+// vnode->node ,插入到dom节点里
+function reconcileChildren(children, node) {
+  if (Array.isArray(children)) {
+    for (let index = 0; index < children.length; index++) {
+      const child = children[index];
+      render(child, node);
+    }
+  } else {
+    render(children, node);
+  }
+}
+
+export { render };
+```
+
+### Component 的继承实现
+
+```js
+export default function Component(props) {
+  this.props = props;
+}
+
+Component.prototype.isReactComponent = {};
+```

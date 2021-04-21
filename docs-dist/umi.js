@@ -8708,7 +8708,7 @@
                     o.a.createElement(
                       'p',
                       null,
-                      '\u5176\u4e2d children \u65e0\u9700\u5339\u914d \u6bcf\u4e2a\u9875\u9762\u90fd\u80fd\u52a0\u8f7d \u4f46\u662f\u653e\u5728switch\u91cc\u9762\u5c31\u4e0d\u4f1a\u4e86',
+                      '\u5176\u4e2d children \u65e0\u9700\u5339\u914d \u6bcf\u4e2a\u9875\u9762\u90fd\u80fd\u52a0\u8f7d \u4f46\u662f\u653e\u5728 switch \u91cc\u9762\u5c31\u4e0d\u4f1a\u4e86',
                     ),
                   ),
                 ),
@@ -8734,36 +8734,36 @@
             ),
             o.a.createElement(u['a'], {
               code:
-                '<div className="App">\n  <BrowserRouter>\n    <nav>\n      <Link to="/">\u9996\u9875</Link>\n      <Link to="/user">\u7528\u6237\u4e2d\u5fc3</Link>\n    </nav>\n    <button onClick={handClick}>{state}</button>\n    {/* \u6839\u8def\u7531\u8981\u6dfb\u52a0exact\uff0c\u5b9e\u73b0\u7cbe\u786e\u5339\u914d */}\n    <Route\n      exact\n      path="/"\n      // children \u662f\u4e0d\u7ba1\u662f\u5426\u5339\u914d\u90fd\u4f1a\u51fa\u73b0\n      // children={() => <div>\u6211\u662fchildren\u6e32\u67d3\u7ed3\u679c</div>}\n      // render={() => <div>\u6211\u662frender\u6e32\u67d3\u7ed3\u679c</div>}\n      // component={() => <HomePage/>} \u9519\u8bef\u5199\u6cd5\n      component={HomePage}\n    />\n    <Route path="/user" component={UserPage} />\n    <Route render={() => <h1>404</h1>} />\n  </BrowserRouter>\n</div>\n\n',
+                '<div className="App">\n  <BrowserRouter>\n    <nav>\n      <Link to="/">\u9996\u9875</Link>\n      <Link to="/user">\u7528\u6237\u4e2d\u5fc3</Link>\n    </nav>\n    <button onClick={handClick}>{state}</button>\n    {/* \u6839\u8def\u7531\u8981\u6dfb\u52a0exact\uff0c\u5b9e\u73b0\u7cbe\u786e\u5339\u914d */}\n    <Route\n      exact\n      path="/"\n      // children \u662f\u4e0d\u7ba1\u662f\u5426\u5339\u914d\u90fd\u4f1a\u51fa\u73b0\n      // children={() => <div>\u6211\u662fchildren\u6e32\u67d3\u7ed3\u679c</div>}\n      // render={() => <div>\u6211\u662frender\u6e32\u67d3\u7ed3\u679c</div>}\n      // component={() => <HomePage/>} \u9519\u8bef\u5199\u6cd5\n      component={HomePage}\n    />\n    <Route path="/user" component={UserPage} />\n    <Route render={() => <h1>404</h1>} />\n  </BrowserRouter>\n</div>\n',
               lang: 'js',
             }),
             o.a.createElement(
               'h2',
-              { id: 'react-router-dom\u5168\u5bb6\u6876' },
+              { id: 'react-router-dom-\u5168\u5bb6\u6876' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#react-router-dom\u5168\u5bb6\u6876',
+                  to: '#react-router-dom-\u5168\u5bb6\u6876',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'react-router-dom\u5168\u5bb6\u6876',
+              'react-router-dom \u5168\u5bb6\u6876',
             ),
             o.a.createElement(
               'h3',
-              { id: 'context\u7ba1\u7406' },
+              { id: 'context-\u7ba1\u7406' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#context\u7ba1\u7406',
+                  to: '#context-\u7ba1\u7406',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'context\u7ba1\u7406',
+              'context \u7ba1\u7406',
             ),
             o.a.createElement(
               'ul',
@@ -8771,103 +8771,103 @@
               o.a.createElement(
                 'li',
                 null,
-                '\u9996\u5148\u5b9a\u4e49\u4e00\u4e2acontext\u7ba1\u7406\u4f5c\u4e3a\u5168\u5c40\u7684\u6570\u636e\u6d41',
+                '\u9996\u5148\u5b9a\u4e49\u4e00\u4e2a context \u7ba1\u7406\u4f5c\u4e3a\u5168\u5c40\u7684\u6570\u636e\u6d41',
               ),
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import React from "react";\n\n  // \u4f7f\u7528Context\u8de8\u5c42\u7ea7\u4f20\u9012\u6570\u636e\n  // step1: \u5148\u521b\u5efa\u4e00\u4e2aContext\u5bf9\u8c61\n  const RouterContext = React.createContext();\n\n  // step2: \u4f7f\u7528Provider\u4f20\u9012value\n\n  // step3: \u5b50\u5b59\u7ec4\u4ef6\u6d88\u8d39value: Consumer\u3001useContext\u3001contextType\n  // useContext\u53ea\u80fd\u7528\u5728\u51fd\u6570\u7ec4\u4ef6\u6216\u8005\u81ea\u5b9a\u4e49hook\u4e2d\n  // contextType \u53ea\u80fd\u7528\u5728\u7c7b\u7ec4\u4ef6\uff0c\u5e76\u4e14\u53ea\u80fd\u8ba2\u9605\u5355\u4e00\u7684context\u6765\u6e90\n\n  export default RouterContext\n\n',
+                "import React from 'react';\n\n// \u4f7f\u7528Context\u8de8\u5c42\u7ea7\u4f20\u9012\u6570\u636e\n// step1: \u5148\u521b\u5efa\u4e00\u4e2aContext\u5bf9\u8c61\nconst RouterContext = React.createContext();\n\n// step2: \u4f7f\u7528Provider\u4f20\u9012value\n\n// step3: \u5b50\u5b59\u7ec4\u4ef6\u6d88\u8d39value: Consumer\u3001useContext\u3001contextType\n// useContext\u53ea\u80fd\u7528\u5728\u51fd\u6570\u7ec4\u4ef6\u6216\u8005\u81ea\u5b9a\u4e49hook\u4e2d\n// contextType \u53ea\u80fd\u7528\u5728\u7c7b\u7ec4\u4ef6\uff0c\u5e76\u4e14\u53ea\u80fd\u8ba2\u9605\u5355\u4e00\u7684context\u6765\u6e90\n\nexport default RouterContext;\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'browserrouter\u7684\u5b9e\u73b0' },
+              { id: 'browserrouter-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#browserrouter\u7684\u5b9e\u73b0',
+                  to: '#browserrouter-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'BrowserRouter\u7684\u5b9e\u73b0',
+              'BrowserRouter \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import React, { Component } from \'react\'\n  import { createBrowserHistory } from "history";\n  import RouterContext from "./RouterContext"\n\n\n  export default class BrowserRouter extends Component {\n    constructor(props) {\n      super(props);\n      this.state = {\n        location: createBrowserHistory().location\n      };\n      this.history = createBrowserHistory();\n      this.unlisten = this.history.listen(location => {\n        this.setState({ location });\n      });\n    }\n    static computeRootMatch(pathname) {\n      return { path: "/", url: "/", params: {}, isExact: pathname === "/" };\n    }\n    render() {\n\n      // return <RouteContext>\n      return <RouterContext.Provider\n        value={{\n          history: this.history,\n          location: this.state.location,\n          match: BrowserRouter.computeRootMatch(this.state.location.pathname)\n        }}>\n        {this.props.children}\n      </RouterContext.Provider>\n    }\n  }\n\n',
+                "import React, { Component } from 'react';\nimport { createBrowserHistory } from 'history';\nimport RouterContext from './RouterContext';\n\nexport default class BrowserRouter extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      location: createBrowserHistory().location,\n    };\n    this.history = createBrowserHistory();\n    this.unlisten = this.history.listen(location => {\n      this.setState({ location });\n    });\n  }\n  static computeRootMatch(pathname) {\n    return { path: '/', url: '/', params: {}, isExact: pathname === '/' };\n  }\n  render() {\n    // return <RouteContext>\n    return (\n      <RouterContext.Provider\n        value={{\n          history: this.history,\n          location: this.state.location,\n          match: BrowserRouter.computeRootMatch(this.state.location.pathname),\n        }}\n      >\n        {this.props.children}\n      </RouterContext.Provider>\n    );\n  }\n}\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'route\u7684\u5b9e\u73b0' },
+              { id: 'route-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#route\u7684\u5b9e\u73b0',
+                  to: '#route-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'Route\u7684\u5b9e\u73b0',
+              'Route \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(u['a'], {
               code:
-                '  import React, { createElement, Component } from \'react\'\n  import RouterContext from "./RouterContext"\n  import matchPath from "./matchPath";\n\n\n  export default class Route extends Component {\n    render() {\n      return (\n        <RouterContext.Consumer>\n          {\n            context => {\n              const { location } = context;\n              const { path, children, component, render, computedMatch } = this.props;\n              const match = computedMatch\n                ? computedMatch\n                : path\n                  ? matchPath(location.pathname, this.props)\n                  : context.match; // location.pathname === path;\n              // const match = path\n              //   ? matchPath(location.pathname, this.props)\n              //   : context.match; // location.pathname === path;\n\n              const props = {\n                ...context,\n                location,\n                match\n              };\n              console.log(match, "match");\n              //match children, component, render, null\n              // \u4e0dmatch children(function), null\n\n              // ()\n              // return createElement(this.props.component)\n              // \u4fee\u6539\u4e86match\u91cd\u65b0\u8ba2\u9605\u4e00\u4e0b\n              return <RouterContext.Provider value={props}>\n                {match ?\n                  children\n                    ? typeof children === "function"\n                      ? children(props)\n                      : children\n                    : component\n                      ? createElement(this.props.component, props)\n                      : render\n                        ? render(props)\n                        : null\n                  : null}\n              </RouterContext.Provider>\n            }\n          }\n        </RouterContext.Consumer>\n      )\n    }\n  }\n\n',
+                "import React, { createElement, Component } from 'react';\nimport RouterContext from './RouterContext';\nimport matchPath from './matchPath';\n\nexport default class Route extends Component {\n  render() {\n    return (\n      <RouterContext.Consumer>\n        {context => {\n          const { location } = context;\n          const {\n            path,\n            children,\n            component,\n            render,\n            computedMatch,\n          } = this.props;\n          const match = computedMatch\n            ? computedMatch\n            : path\n            ? matchPath(location.pathname, this.props)\n            : context.match; // location.pathname === path;\n          // const match = path\n          //   ? matchPath(location.pathname, this.props)\n          //   : context.match; // location.pathname === path;\n\n          const props = {\n            ...context,\n            location,\n            match,\n          };\n          console.log(match, 'match');\n          //match children, component, render, null\n          // \u4e0dmatch children(function), null\n\n          // ()\n          // return createElement(this.props.component)\n          // \u4fee\u6539\u4e86match\u91cd\u65b0\u8ba2\u9605\u4e00\u4e0b\n          return (\n            <RouterContext.Provider value={props}>\n              {match\n                ? children\n                  ? typeof children === 'function'\n                    ? children(props)\n                    : children\n                  : component\n                  ? createElement(this.props.component, props)\n                  : render\n                  ? render(props)\n                  : null\n                : null}\n            </RouterContext.Provider>\n          );\n        }}\n      </RouterContext.Consumer>\n    );\n  }\n}\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'switch\u7684\u5b9e\u73b0' },
+              { id: 'switch-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#switch\u7684\u5b9e\u73b0',
+                  to: '#switch-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'Switch\u7684\u5b9e\u73b0',
+              'Switch \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import React, { Component } from "react";\n  import RouterContext from "./RouterContext";\n  import matchPath from "./matchPath";\n\n  // \u72ec\u5360\u8def\u7531\n  // \u6e32\u67d3\u4e0e\u8be5\u5730\u5740\u5339\u914d\u7684\u7b2c\u4e00\u4e2a\u5b50\u8282\u70b9 <Route> \u6216\u8005 <Redirect>\u3002\n  // \u904d\u5386\u5b50\u8282\u70b9\uff0c\u627e\u5230\u5339\u914d\u7684\uff0c\u5c31\u8d70\u4e86\n  class Switch extends Component {\n    render() {\n      return (\n        <RouterContext.Consumer>\n          {context => {\n            const location = this.props.location || context.location;\n            let match; //\u6807\u8bb0\u5339\u914d\n            let element; //\u8bb0\u5f55\u5339\u914d\u7684\u5143\u7d20\n\n            React.Children.forEach(this.props.children, child => {\n              if (match == null && React.isValidElement(child)) {\n                element = child;\n\n                match = child.props.path\n                  ? matchPath(location.pathname, child.props)\n                  : context.match;\n              }\n            });\n\n            return match\n              ? React.cloneElement(element, { computedMatch: match })\n              : null;\n          }}\n        </RouterContext.Consumer>\n      );\n    }\n  }\n  export default Switch;\n\n',
+                "import React, { Component } from 'react';\nimport RouterContext from './RouterContext';\nimport matchPath from './matchPath';\n\n// \u72ec\u5360\u8def\u7531\n// \u6e32\u67d3\u4e0e\u8be5\u5730\u5740\u5339\u914d\u7684\u7b2c\u4e00\u4e2a\u5b50\u8282\u70b9 <Route> \u6216\u8005 <Redirect>\u3002\n// \u904d\u5386\u5b50\u8282\u70b9\uff0c\u627e\u5230\u5339\u914d\u7684\uff0c\u5c31\u8d70\u4e86\nclass Switch extends Component {\n  render() {\n    return (\n      <RouterContext.Consumer>\n        {context => {\n          const location = this.props.location || context.location;\n          let match; //\u6807\u8bb0\u5339\u914d\n          let element; //\u8bb0\u5f55\u5339\u914d\u7684\u5143\u7d20\n\n          React.Children.forEach(this.props.children, child => {\n            if (match == null && React.isValidElement(child)) {\n              element = child;\n\n              match = child.props.path\n                ? matchPath(location.pathname, child.props)\n                : context.match;\n            }\n          });\n\n          return match\n            ? React.cloneElement(element, { computedMatch: match })\n            : null;\n        }}\n      </RouterContext.Consumer>\n    );\n  }\n}\nexport default Switch;\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'redirect\u7684\u5b9e\u73b0' },
+              { id: 'redirect-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#redirect\u7684\u5b9e\u73b0',
+                  to: '#redirect-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'Redirect\u7684\u5b9e\u73b0',
+              'Redirect \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import React, { Component } from "react";\n  import RouterContext from "./RouterContext";\n\n  export default class Redirect extends Component {\n    render() {\n      return (\n        <RouterContext.Consumer>\n          {context => {\n            const { history } = context;\n            const { to, push = false } = this.props;\n            // \u56e0\u4e3a\u5728return\u91cc\u9762\u6ca1\u6cd5\u505a\u62e6\u622a\u5904\u7406  \u53ea\u80fd\u5728\u5199\u4e00\u4e2a\u7ec4\u4ef6\n            return (\n              <LifeCycle\n                onMount={() => {\n                  push ? history.push(to) : history.replace(to);\n                }}\n              />\n            );\n          }}\n        </RouterContext.Consumer>\n      );\n    }\n  }\n\n  class LifeCycle extends Component {\n    componentDidMount() {\n      if (this.props.onMount) {\n        this.props.onMount.call(this, this);\n      }\n    }\n    render() {\n      return null;\n    }\n  }\n\n',
+                "import React, { Component } from 'react';\nimport RouterContext from './RouterContext';\n\nexport default class Redirect extends Component {\n  render() {\n    return (\n      <RouterContext.Consumer>\n        {context => {\n          const { history } = context;\n          const { to, push = false } = this.props;\n          // \u56e0\u4e3a\u5728return\u91cc\u9762\u6ca1\u6cd5\u505a\u62e6\u622a\u5904\u7406  \u53ea\u80fd\u5728\u5199\u4e00\u4e2a\u7ec4\u4ef6\n          return (\n            <LifeCycle\n              onMount={() => {\n                push ? history.push(to) : history.replace(to);\n              }}\n            />\n          );\n        }}\n      </RouterContext.Consumer>\n    );\n  }\n}\n\nclass LifeCycle extends Component {\n  componentDidMount() {\n    if (this.props.onMount) {\n      this.props.onMount.call(this, this);\n    }\n  }\n  render() {\n    return null;\n  }\n}\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'withrouter\u7684\u5b9e\u73b0' },
+              { id: 'withrouter-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#withrouter\u7684\u5b9e\u73b0',
+                  to: '#withrouter-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'withRouter\u7684\u5b9e\u73b0',
+              'withRouter \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(
               'ul',
@@ -8875,46 +8875,46 @@
               o.a.createElement(
                 'li',
                 null,
-                '\u5176\u5b9e\u8fd9\u4e2a\u65b9\u6cd5\u5c31\u662f\u7b80\u5355\u7684\u628a\u4e00\u4e2a\u7c7b\u7ec4\u4ef6\u53d8\u6210\u7eaf\u51fd\u6570\u7136\u540e\u6302\u8f7d\u4e86\u4e0bprops\u800c\u5df2',
+                '\u5176\u5b9e\u8fd9\u4e2a\u65b9\u6cd5\u5c31\u662f\u7b80\u5355\u7684\u628a\u4e00\u4e2a\u7c7b\u7ec4\u4ef6\u53d8\u6210\u7eaf\u51fd\u6570\u7136\u540e\u6302\u8f7d\u4e86\u4e0b props \u800c\u5df2',
               ),
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import RouterContext from "./RouterContext";\n\n  const withRouter = WrappedComponent => props => {\n    return (\n      <RouterContext.Consumer>\n        {context => <WrappedComponent {...props} {...context} />}\n      </RouterContext.Consumer>\n    );\n  };\n\n  export default withRouter;\n\n',
+                "import RouterContext from './RouterContext';\n\nconst withRouter = WrappedComponent => props => {\n  return (\n    <RouterContext.Consumer>\n      {context => <WrappedComponent {...props} {...context} />}\n    </RouterContext.Consumer>\n  );\n};\n\nexport default withRouter;\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'link\u7684\u5b9e\u73b0' },
+              { id: 'link-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#link\u7684\u5b9e\u73b0',
+                  to: '#link-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'Link\u7684\u5b9e\u73b0',
+              'Link \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import React from \'react\'\n  import RouterContext from "./RouterContext";\n\n\n  export default function Link({\n    to,\n    children\n  }) {\n    const context = React.useContext(RouterContext);\n\n    const handClick=(e)=>{\n      e.preventDefault();\n      context.history.push(to);\n    }\n\n    return (\n      <a href={to} onClick={handClick}>{children}</a>\n    )\n  }\n\n',
+                "import React from 'react';\nimport RouterContext from './RouterContext';\n\nexport default function Link({ to, children }) {\n  const context = React.useContext(RouterContext);\n\n  const handClick = e => {\n    e.preventDefault();\n    context.history.push(to);\n  };\n\n  return (\n    <a href={to} onClick={handClick}>\n      {children}\n    </a>\n  );\n}\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'matchpath\u7684\u5b9e\u73b0' },
+              { id: 'matchpath-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#matchpath\u7684\u5b9e\u73b0',
+                  to: '#matchpath-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'matchPath\u7684\u5b9e\u73b0',
+              'matchPath \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(
               'ul',
@@ -8922,55 +8922,139 @@
               o.a.createElement(
                 'li',
                 null,
-                '\u4e0a\u8ff0\u4ee3\u7801\u6240\u7528\u5230\u7684matchPath\u5c31\u662f\u5bf9\u8def\u7531\u8def\u5f84\u505a\u4e86\u4e0b\u62c6\u5206\u5904\u7406',
+                '\u4e0a\u8ff0\u4ee3\u7801\u6240\u7528\u5230\u7684 matchPath \u5c31\u662f\u5bf9\u8def\u7531\u8def\u5f84\u505a\u4e86\u4e0b\u62c6\u5206\u5904\u7406',
               ),
               o.a.createElement(
                 'li',
                 null,
-                '\u8fd9\u91cc\u76f4\u63a5copy\u6e90\u7801\u4e86',
+                '\u8fd9\u91cc\u76f4\u63a5 copy \u6e90\u7801\u4e86',
               ),
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import pathToRegexp from "path-to-regexp";\n\n  const cache = {};\n  const cacheLimit = 10000;\n  let cacheCount = 0;\n\n  function compilePath(path, options) {\n    const cacheKey = `${options.end}${options.strict}${options.sensitive}`;\n    const pathCache = cache[cacheKey] || (cache[cacheKey] = {});\n\n    if (pathCache[path]) return pathCache[path];\n\n    const keys = [];\n    const regexp = pathToRegexp(path, keys, options);\n    const result = { regexp, keys };\n\n    if (cacheCount < cacheLimit) {\n      pathCache[path] = result;\n      cacheCount++;\n    }\n\n    return result;\n  }\n\n  /**\n  * Public API for matching a URL pathname to a path.\n  */\n  function matchPath(pathname, options = {}) {\n    if (typeof options === "string" || Array.isArray(options)) {\n      options = { path: options };\n    }\n\n    const { path, exact = false, strict = false, sensitive = false } = options;\n\n    const paths = [].concat(path);\n\n    return paths.reduce((matched, path) => {\n      if (!path && path !== "") return null;\n      if (matched) return matched;\n\n      const { regexp, keys } = compilePath(path, {\n        end: exact,\n        strict,\n        sensitive\n      });\n      const match = regexp.exec(pathname);\n\n      if (!match) return null;\n\n      const [url, ...values] = match;\n      const isExact = pathname === url;\n\n      if (exact && !isExact) return null;\n\n      return {\n        path, // the path used to match\n        url: path === "/" && url === "" ? "/" : url, // the matched portion of the URL\n        isExact, // whether or not we matched exactly\n        params: keys.reduce((memo, key, index) => {\n          memo[key.name] = values[index];\n          return memo;\n        }, {})\n      };\n    }, null);\n  }\n\n  export default matchPath;\n\n',
+                "\nimport pathToRegexp from 'path-to-regexp';\n\nconst cache = {};\nconst cacheLimit = 10000;\nlet cacheCount = 0;\n\nfunction compilePath(path, options) {\n  const cacheKey = `${options.end}${options.strict}${options.sensitive}`;\n  const pathCache = cache[cacheKey] || (cache[cacheKey] = {});\n\n  if (pathCache[path]) return pathCache[path];\n\n  const keys = [];\n  const regexp = pathToRegexp(path, keys, options);\n  const result = { regexp, keys };\n\n  if (cacheCount < cacheLimit) {\n    pathCache[path] = result;\n    cacheCount++;\n  }\n\n  return result;\n}\n\n/**\n * Public API for matching a URL pathname to a path.\n */\nfunction matchPath(pathname, options = {}) {\n  if (typeof options === 'string' || Array.isArray(options)) {\n    options = { path: options };\n  }\n\n  const { path, exact = false, strict = false, sensitive = false } = options;\n\n  const paths = [].concat(path);\n\n  return paths.reduce((matched, path) => {\n    if (!path && path !== '') return null;\n    if (matched) return matched;\n\n    const { regexp, keys } = compilePath(path, {\n      end: exact,\n      strict,\n      sensitive,\n    });\n    const match = regexp.exec(pathname);\n\n    if (!match) return null;\n\n    const [url, ...values] = match;\n    const isExact = pathname === url;\n\n    if (exact && !isExact) return null;\n\n    return {\n      path, // the path used to match\n      url: path === '/' && url === '' ? '/' : url, // the matched portion of the URL\n      isExact, // whether or not we matched exactly\n      params: keys.reduce((memo, key, index) => {\n        memo[key.name] = values[index];\n        return memo;\n      }, {}),\n    };\n  }, null);\n}\n\nexport default matchPath;\n\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: 'prompt\u7684\u5b9e\u73b0' },
+              { id: 'prompt-\u7684\u5b9e\u73b0' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#prompt\u7684\u5b9e\u73b0',
+                  to: '#prompt-\u7684\u5b9e\u73b0',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              'Prompt\u7684\u5b9e\u73b0',
+              'Prompt \u7684\u5b9e\u73b0',
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import React, { Component } from "react";\n  import RouterContext from "./RouterContext";\n\n  export default function Prompt({ message, when = true }) {\n    return (\n      <RouterContext.Consumer>\n        {context => {\n          if (!when) {\n            return null;\n          }\n          let method = context.history.block;\n          return (\n            <LifeCycle\n              onMount={self => {\n                self.release = method(message);\n              }}\n              onUnmount={self => {\n                self.release();\n              }}\n            />\n          );\n        }}\n      </RouterContext.Consumer>\n    );\n  }\n\n\n  class LifeCycle extends Component {\n    componentDidMount() {\n      if (this.props.onMount) {\n        this.props.onMount.call(this, this);\n      }\n    }\n\n    componentWillUnmount() {\n      console.log("componentWillUnmount", this);\n      if (this.props.onUnmount) {\n        this.props.onUnmount.call(this, this);\n      }\n    }\n    render() {\n      return null;\n    }\n  }\n\n',
+                "\nimport React, { Component } from 'react';\nimport RouterContext from './RouterContext';\n\nexport default function Prompt({ message, when = true }) {\n  return (\n    <RouterContext.Consumer>\n      {context => {\n        if (!when) {\n          return null;\n        }\n        let method = context.history.block;\n        return (\n          <LifeCycle\n            onMount={self => {\n              self.release = method(message);\n            }}\n            onUnmount={self => {\n              self.release();\n            }}\n          />\n        );\n      }}\n    </RouterContext.Consumer>\n  );\n}\n\nclass LifeCycle extends Component {\n  componentDidMount() {\n    if (this.props.onMount) {\n      this.props.onMount.call(this, this);\n    }\n  }\n\n  componentWillUnmount() {\n    console.log('componentWillUnmount', this);\n    if (this.props.onUnmount) {\n      this.props.onUnmount.call(this, this);\n    }\n  }\n  render() {\n    return null;\n  }\n}\n\n",
               lang: 'js',
             }),
             o.a.createElement(
               'h3',
-              { id: '\u51e0\u4e2ahooks\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5' },
+              { id: '\u51e0\u4e2a-hooks-\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5' },
               o.a.createElement(
                 a['AnchorLink'],
                 {
-                  to: '#\u51e0\u4e2ahooks\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
+                  to:
+                    '#\u51e0\u4e2a-hooks-\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
                   'aria-hidden': 'true',
                   tabIndex: -1,
                 },
                 o.a.createElement('span', { className: ['icon', 'icon-link'] }),
               ),
-              '\u51e0\u4e2ahooks\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
+              '\u51e0\u4e2a hooks \u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
             ),
             o.a.createElement(u['a'], {
               code:
-                '\n  import RouterContext from "./RouterContext";\n  import { useContext } from "react";\n\n  export function useHistory() {\n    return useContext(RouterContext).history;\n  }\n\n  export function useLocation() {\n    return useContext(RouterContext).location;\n  }\n  export function useRouteMatch() {\n    return useContext(RouterContext).match;\n  }\n  export function useParams() {\n    const match = useContext(RouterContext).match;\n    return match ? match.params : {};\n  }\n\n',
+                "\nimport RouterContext from './RouterContext';\nimport { useContext } from 'react';\n\nexport function useHistory() {\n  return useContext(RouterContext).history;\n}\n\nexport function useLocation() {\n  return useContext(RouterContext).location;\n}\nexport function useRouteMatch() {\n  return useContext(RouterContext).match;\n}\nexport function useParams() {\n  const match = useContext(RouterContext).match;\n  return match ? match.params : {};\n}\n\n",
+              lang: 'js',
+            }),
+            o.a.createElement(
+              'h2',
+              {
+                id: 'react\u51e0\u4e2a\u57fa\u7840api\u7684\u5c0f\u6848\u4f8b',
+              },
+              o.a.createElement(
+                a['AnchorLink'],
+                {
+                  to:
+                    '#react\u51e0\u4e2a\u57fa\u7840api\u7684\u5c0f\u6848\u4f8b',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'react\u51e0\u4e2a\u57fa\u7840API\u7684\u5c0f\u6848\u4f8b',
+            ),
+            o.a.createElement(
+              'h3',
+              { id: 'jsx\u6e32\u67d3' },
+              o.a.createElement(
+                a['AnchorLink'],
+                { to: '#jsx\u6e32\u67d3', 'aria-hidden': 'true', tabIndex: -1 },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'jsx\u6e32\u67d3',
+            ),
+            o.a.createElement(
+              'ul',
+              null,
+              o.a.createElement(
+                'li',
+                null,
+                '\u5728react 17\u4e4b\u524d\u5982\u679c\u4f7f\u7528jsx\u8bed\u6cd5\u5c31\u5fc5\u987b\u5f15\u7528react  17\u540e\u7684\u5219\u4e0d\u9700\u8981\u5f15\u7528',
+              ),
+            ),
+            o.a.createElement(
+              'blockquote',
+              null,
+              o.a.createElement(
+                'p',
+                null,
+                '\u539f\u56e0\u662f React 16\u7684babel-loader\u4f1a\u9884\u7f16\u8bd1JSX\u4e3aReact.createElement(...)React 17\u4e2d\u7684 JSX \u8f6c\u6362\u4e0d\u4f1a\u5c06 JSX \u8f6c\u6362\u4e3a React.createElement\uff0c\u800c\u662f\u81ea\u52a8\u4eceReact \u7684 package \u4e2d\u5f15\u5165\u65b0\u7684\u5165\u53e3\u51fd\u6570\u5e76\u8c03\u7528\u3002\u53e6\u5916\u6b64\u6b21\u5347\u7ea7\u4e0d\u4f1a\u6539\u53d8 JSX \u8bed\u6cd5\uff0c\u65e7\u7684 JSX \u8f6c\u6362\u4e5f\u5c06\u7ee7\u7eed\u5de5\u4f5c\u3002',
+              ),
+            ),
+            o.a.createElement(
+              'h3',
+              { id: 'react-dom\u4e4brender\u7b80\u6613\u7248\u5b9e\u73b0' },
+              o.a.createElement(
+                a['AnchorLink'],
+                {
+                  to: '#react-dom\u4e4brender\u7b80\u6613\u7248\u5b9e\u73b0',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'react-dom\u4e4brender\u7b80\u6613\u7248\u5b9e\u73b0',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                '\n  // vnode \u865a\u62dfdom\u8282\u70b9\n  // node \u771f\u5b9edom\u8282\u70b9\n  // container  node\u662fnode\u8282\u70b9\n  function render(vnode, container) {\n    console.log("vnode", vnode, container); //sy-log\n\n    // step1 : vnode->node\n    const node = createNode(vnode);\n    //step2: container.appnedChild(node)\n    container.appendChild(node);\n  }\n\n  function createNode(vnode) {\n    let node = null;\n    // todo vnode->node\n\n    const { type } = vnode;\n    if (typeof type === "string") {\n      // \u539f\u751f\u6807\u7b7e\n      node = updateHostComponent(vnode);\n    } else if (typeof type === "function") {\n      // \u51fd\u6570\u7ec4\u4ef6\u6216\u8005\u7c7b\u7ec4\u4ef6\n      node = type.prototype.isReactComponent\n        ? updateClassComponent(vnode)\n        : updateFunctionComponent(vnode);\n    } else {\n      node = createFragmentComponent(vnode);\n    }\n\n    return node;\n  }\n\n  //\u539f\u751f\u6807\u7b7e\u8282\u70b9\u5904\u7406\n  function updateHostComponent(vnode) {\n    const { type, props } = vnode;\n    let node = document.createElement(type);\n\n    if (typeof props.children === "string") {\n      let childText = document.createTextNode(props.children);\n      node.appendChild(childText);\n    } else {\n      reconcileChildren(props.children, node);\n    }\n\n    updateNode(node, props);\n    return node;\n  }\n\n  // \u5904\u7406Fragment\u8282\u70b9\n  function createFragmentComponent(vnode) {\n    const node = document.createDocumentFragment();\n    reconcileChildren(vnode.props.children, node);\n    return node;\n  }\n\n  // \u51fd\u6570\u7ec4\u4ef6\n  // \u6267\u884c\u51fd\u6570\n  function updateFunctionComponent(vnode) {\n    const { type, props } = vnode;\n\n    const vvnode = type(props);\n\n    const node = createNode(vvnode);\n    return node;\n  }\n\n  // \u7c7b\u7ec4\u4ef6\n  // \u5148\u5b9e\u4f8b\u5316 \u518d\u6267\u884crender\u51fd\u6570\n  function updateClassComponent(vnode) {\n    const { type, props } = vnode;\n    const instance = new type(props);\n    const vvnode = instance.render();\n    const node = createNode(vvnode);\n    return node;\n  }\n\n  // \u66f4\u65b0\u5c5e\u6027\n  function updateNode(node, nextVal) {\n    Object.keys(nextVal)\n      .filter(k => k !== "children")\n      .forEach(k => {\n        node[k] = nextVal[k];\n      });\n  }\n\n  // vnode->node ,\u63d2\u5165\u5230dom\u8282\u70b9\u91cc\n  function reconcileChildren(children, node) {\n    if (Array.isArray(children)) {\n      for (let index = 0; index < children.length; index++) {\n        const child = children[index];\n        render(child, node);\n      }\n    } else {\n      render(children, node);\n    }\n  }\n\n  export { render };\n\n',
+              lang: 'js',
+            }),
+            o.a.createElement(
+              'h3',
+              { id: 'component\u7684\u7ee7\u627f\u5b9e\u73b0' },
+              o.a.createElement(
+                a['AnchorLink'],
+                {
+                  to: '#component\u7684\u7ee7\u627f\u5b9e\u73b0',
+                  'aria-hidden': 'true',
+                  tabIndex: -1,
+                },
+                o.a.createElement('span', { className: ['icon', 'icon-link'] }),
+              ),
+              'Component\u7684\u7ee7\u627f\u5b9e\u73b0',
+            ),
+            o.a.createElement(u['a'], {
+              code:
+                '\n  export default function Component(props) {\n    this.props = props;\n  }\n\n  Component.prototype.isReactComponent = {};\n\n',
               lang: 'js',
             }),
           ),
@@ -28461,7 +28545,7 @@
               exact: !0,
               meta: {
                 filePath: 'src/ReactStudy/index.md',
-                updatedTime: 1618218912e3,
+                updatedTime: 1618471752e3,
                 componentName: 'ReactStudy',
                 nav: { title: 'ReactStudy', path: '/ReactStudy', order: 5 },
                 slugs: [
@@ -28570,60 +28654,84 @@
                   },
                   {
                     depth: 2,
-                    value: 'react-router-dom\u5168\u5bb6\u6876',
-                    heading: 'react-router-dom\u5168\u5bb6\u6876',
+                    value: 'react-router-dom \u5168\u5bb6\u6876',
+                    heading: 'react-router-dom-\u5168\u5bb6\u6876',
                   },
                   {
                     depth: 3,
-                    value: 'context\u7ba1\u7406',
-                    heading: 'context\u7ba1\u7406',
+                    value: 'context \u7ba1\u7406',
+                    heading: 'context-\u7ba1\u7406',
                   },
                   {
                     depth: 3,
-                    value: 'BrowserRouter\u7684\u5b9e\u73b0',
-                    heading: 'browserrouter\u7684\u5b9e\u73b0',
+                    value: 'BrowserRouter \u7684\u5b9e\u73b0',
+                    heading: 'browserrouter-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'Route\u7684\u5b9e\u73b0',
-                    heading: 'route\u7684\u5b9e\u73b0',
+                    value: 'Route \u7684\u5b9e\u73b0',
+                    heading: 'route-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'Switch\u7684\u5b9e\u73b0',
-                    heading: 'switch\u7684\u5b9e\u73b0',
+                    value: 'Switch \u7684\u5b9e\u73b0',
+                    heading: 'switch-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'Redirect\u7684\u5b9e\u73b0',
-                    heading: 'redirect\u7684\u5b9e\u73b0',
+                    value: 'Redirect \u7684\u5b9e\u73b0',
+                    heading: 'redirect-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'withRouter\u7684\u5b9e\u73b0',
-                    heading: 'withrouter\u7684\u5b9e\u73b0',
+                    value: 'withRouter \u7684\u5b9e\u73b0',
+                    heading: 'withrouter-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'Link\u7684\u5b9e\u73b0',
-                    heading: 'link\u7684\u5b9e\u73b0',
+                    value: 'Link \u7684\u5b9e\u73b0',
+                    heading: 'link-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'matchPath\u7684\u5b9e\u73b0',
-                    heading: 'matchpath\u7684\u5b9e\u73b0',
+                    value: 'matchPath \u7684\u5b9e\u73b0',
+                    heading: 'matchpath-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
-                    value: 'Prompt\u7684\u5b9e\u73b0',
-                    heading: 'prompt\u7684\u5b9e\u73b0',
+                    value: 'Prompt \u7684\u5b9e\u73b0',
+                    heading: 'prompt-\u7684\u5b9e\u73b0',
                   },
                   {
                     depth: 3,
                     value:
-                      '\u51e0\u4e2ahooks\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
+                      '\u51e0\u4e2a hooks \u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
                     heading:
-                      '\u51e0\u4e2ahooks\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
+                      '\u51e0\u4e2a-hooks-\u83b7\u53d6\u7684\u5c0f\u65b9\u6cd5',
+                  },
+                  {
+                    depth: 2,
+                    value:
+                      'react\u51e0\u4e2a\u57fa\u7840API\u7684\u5c0f\u6848\u4f8b',
+                    heading:
+                      'react\u51e0\u4e2a\u57fa\u7840api\u7684\u5c0f\u6848\u4f8b',
+                  },
+                  {
+                    depth: 3,
+                    value: 'jsx\u6e32\u67d3',
+                    heading: 'jsx\u6e32\u67d3',
+                  },
+                  {
+                    depth: 3,
+                    value:
+                      'react-dom\u4e4brender\u7b80\u6613\u7248\u5b9e\u73b0',
+                    heading:
+                      'react-dom\u4e4brender\u7b80\u6613\u7248\u5b9e\u73b0',
+                  },
+                  {
+                    depth: 3,
+                    value: 'Component\u7684\u7ee7\u627f\u5b9e\u73b0',
+                    heading: 'component\u7684\u7ee7\u627f\u5b9e\u73b0',
                   },
                 ],
                 title: 'react-study',
