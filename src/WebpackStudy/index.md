@@ -63,7 +63,7 @@ module.exports = {
 };
 ```
 
-### entry:
+### entry
 
 - 单⼊⼝ SPA，本质是个字符串
 

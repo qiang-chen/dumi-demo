@@ -67,7 +67,7 @@ class MyPromise {
 }
 ```
 
-### then 和 all 和 reace 方法实现
+### then 和 all 和 race 方法实现
 
 ```ts
 let flag = false; // 加个开关  防止成功或者失败一起调用
@@ -335,5 +335,18 @@ import { Study } from 'dumi-demo';
 
 export default () => <Study />;
 ```
+
+## 文件上传相关优化
+
+- 文件 2 个 g 怎么破
+- 断点上传 需要给文件加个唯一标识 计算文件内容 md5 但是 时间太久 怎么优化下
+- webworker，影分身去解决
+- 抽样（损失⼀丢丢的正确率，换取了效率的体⼤提升）
+- 浏览器空闲时间计算
+
+## 不一样的限制图片格式上传
+
+- 方法 1 直接判断后缀名 隐患 用户直接改变后缀骗过代码
+- 方法 2 通过图片的二进制构成去判断
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
