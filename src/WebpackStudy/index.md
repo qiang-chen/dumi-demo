@@ -522,3 +522,260 @@ const generateCode = entry => {
 const code = generateCode('./src/index.js');
 console.log(code);
 ```
+
+## 几个小优化
+
+### 优化 loader
+
+- 因为使用 babel 打包项目需要转换代码成字符串生成 AST（抽象语法树），然后又将 AST 转变生成最终的代码，所以项目越大，效率越低。
+
+  - 优化 Loader 的文件搜索范围，给 babel 的搜索范围做一个限制，比如只搜索 css 文件等
+  - 将 Babel 编译过的文件缓存起来，下次只需要编译更改过的代码文件即可
+
+```js
+loader: 'babel-loader?cacheDirectory=true';
+```
+
+### HappyPack 开启多线程
+
+- 因为 node 是单线程运行的，所以 Webpack 打包的过程中也是单线程的，所以在执行 loader 的时候，会导致等待的情况。HappyPack 可以将 Loader 的同步执行转换成并行的
+
+```js
+
+  module:{
+      loader:[
+          {
+              //js文件才使用babel
+              test:/\.js$/,
+              //只在src文件夹下查找
+              include:[resolve('src')]，
+              exclude:/node_modules/,
+              //id后面的内容对应下面
+              loader:'happypack/loader?id=happypack'
+          }
+      ]
+  },
+  plugins:[
+      new HappyPack({
+          id:'happypack',
+          loaders:['babel-loader?cacheDirectory'],
+          //开启4个线程
+          threads:4
+      })
+  ]
+
+```
+
+### DllPlugin 减少打包次数
+
+- 可以将特定的类库提前打包然后引入。极大的减少了打包类库的次数，只有当类库更新版本才需要重新打包，也实现了将共欧诺个代码抽历程单独文件的优化方案
+
+```js
+// webpack.dll.conf.js
+const path = require('path');
+const webpack = require('webpack');
+module.exports = {
+  entry: {
+    //想统一打包的库
+    vendor: ['react'],
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].dll.js',
+    library: '[name]-[hash]',
+  },
+  plugins: [
+    new webpack.DllPlugin({
+      //name必须和output.library一致
+      name: '[name]-[hash]',
+      //该属性需要与DllReferencePlugin中一致
+      context: __dirname,
+      path: path.join(__dirname, 'dist', '[name]-mainfest.json'),
+    }),
+  ],
+};
+```
+
+然后需要执行这个配置文件生成依赖文件，接下来需要使用 DllReferencePluhin 将依赖文件引入项目中
+
+```js
+// webpack.conf.js
+new webpack.DllReferencePlugin({
+  context: __dirname,
+  mainfest: require('./dist/vendor-mainfest.json'),
+});
+```
+
+### 按需加载
+
+- 1. Scope Hoisting: 可以分析出模块之间的依赖关系，尽可能的把打包出来的模块合并到一个函数中
+
+```js
+// 如果在webpack4中希望开启这个功能，只需要启用optimization.concatenateModules就可以了
+module,
+  (exports = {
+    optimization: {
+      // optimization: 优化
+      concatenateModules: true, // concatenate: 合并
+    },
+  });
+```
+
+## 推荐一遍小配置
+
+```js
+// resolve用来拼接绝对路径的方法
+const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// 提取css文件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// 压缩css代码
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+
+process.env.NODE_ENV = 'development';
+
+module.exports = {
+  // webpack配置
+  entry: './src/index.js', // 入口
+  output: {
+    // 输出
+    filename: 'built.js', // 输出文件名
+    // __dirname: nodejs的变量，代表当前文件的目录绝对路径
+    path: resolve(__dirname, 'build'), // 输入路径
+    // 针对页面中引入的资源的路径做对应的补全，常见于在css或者html中引入的图片
+    publicPath: './',
+  },
+  // loader 配置
+  module: {
+    rules: [
+      // 详细loader配置
+      // 不同文件得配置不同loader
+      {
+        // 匹配哪些文件
+        test: /\.(css|less)$/,
+        // 使用哪些loader
+        use: [
+          // use数组中loader执行顺序：从后到前依次执行
+          // 'style-loader', // 创建一个style标签，将js中的css样式资源插入进去,添加到head中生效
+          // 提取js中的css成单独文件，取代style-loader
+          MiniCssExtractPlugin.loader,
+          'css-loader', // 将css文件变成commonjs的模块加载js中，里面内容是样式字符串
+          'less-loader', // 将less文件编译成css文件
+          /**
+           * css 兼容性处理
+           */
+          // 第一种用法：使用loader的默认配置： 'postcss-loader'
+          // 第二种写法：对象
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                // 帮助postcss找到package.json中browserslist里面的配置，通过配置加载指定的css兼容性样式
+                require('postcss-preset-env')(),
+              ],
+            },
+          },
+        ],
+      },
+      {
+        // 默认处理不了html中的img图片
+        // 处理图片资源
+        test: /\.(jpg|png|gif|jpeg)$/,
+        // 使用多个loader用use， 一个loader的时候可以直接用loader
+        // 需要下载url-loader 和 file-loader
+        loader: 'url-loader',
+        options: {
+          // 图片小于8kb的时候，就会被base64处理
+          // base64优点：减少请求数量，减轻服务器压力
+          // 缺点：图片体积会变大，文件请求速度更慢
+          limit: 8 * 1024,
+          // 因为url-loader默认使用es6模块化解析，而html-loader引入图片是commonjs，解析时会出错
+          // 解决： 关闭url-loader的es6模块化，使用commonjs解析
+          esModule: false,
+          // 给图片重命名
+          // [hash:10]取图片的hash前10位
+          // [ext]取文件原来扩展名
+          name: '[hash:10].[ext]',
+        },
+      },
+      {
+        test: /.html$/,
+        // 处理html文件中的img图片， 负责引入img，从而能被url-loader进行处理
+        loader: 'html-loader',
+      },
+      // 打包其他资源
+      {
+        // 排除资源
+        exclude: /\.(css|js|ts|less|html|jsx|tsx|json|jpg|png|gif|jpeg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[hash:10].[ext]',
+        },
+      },
+      // {
+      //     test: /\.(js|ts|jsx|tsx)$/,
+      //     exclude: /node_modules/,
+      //     loader: 'eslint-loader',
+      //     options: {}
+      // },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  edge: '11',
+                  firefox: '60',
+                  chrome: '58',
+                  safari: '11',
+                },
+              },
+            ],
+          ],
+        },
+      },
+    ],
+  },
+  // 插件
+  plugins: [
+    // 详细plugins配置
+    // 功能：默认会创建一个空的HTML，自动引入打包输出的所有资源
+    new HtmlWebpackPlugin({
+      // template: 配置参数，复制html文件并自动引入打包输出的所有资源
+      template: './src/index.html',
+      minify: {
+        //移除空格
+        collapseWhitespace: true,
+        //移除注释
+        removeComments: true,
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'index.css',
+    }),
+    new OptimizeCssAssetsWebpackPlugin(),
+  ],
+  // mode: 'development', // 编译模式 development || production
+  mode: 'production',
+  // 开发服务器 devServer 用来自动化编译、自动打开浏览器、自动刷新浏览器等功能
+  // 特点：只会在内存中编译打包，不会有任何输出
+  // 启动指令: webpack-dev-server
+  devServer: {
+    // 指定额外的静态资源路径,可以是一个字符串或者一个数组
+    // 因为在开发阶段我们一般不会去打包public、images等静态资源目录,只有在上线前才会去将其打包,所以在这里配置一下，如果output中配置了publicPath属性，一定要注释掉publicPath，不然会加载不出图片等静态资源
+    contentBase: './build',
+    // 启动gzip压缩
+    compress: true,
+    // 端口号
+    port: 3000,
+    // 默认打开浏览器
+    open: true,
+  },
+};
+```
