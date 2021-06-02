@@ -250,3 +250,124 @@ app.config.errorHandler = (err, vm, info) => {
   // 处理异常
 };
 ```
+
+## 实现 instanceOf
+
+```js
+// 模拟 instanceof
+function instance_of(L, R) {
+  //L 表示左表达式，R 表示右表达式
+  var O = R.prototype; // 取 R 的显示原型
+  L = L.__proto__; // 取 L 的隐式原型
+  while (true) {
+    if (L === null) return false;
+    if (O === L)
+      // 这⾥重点：当 O 严格等于 L 时，返回 true
+      return true;
+    L = L.__proto__;
+  }
+}
+```
+
+## 模拟 new
+
+new 操作符做了这些事：
+
+- 它创建了⼀个全新的对象
+- 它会被执⾏[[Prototype]]（也就是 proto）链接
+- 它使 this 指向新创建的对象
+- 通过 new 创建的每个对象将最终被[[Prototype]]链接到这个函数的 prototype 对象上
+- 如果函数没有返回对象类型 Object(包含 Functoin, Array, Date, RegExg, Error)，那么 new 表达式中的函数调⽤将返回该对象引⽤
+
+```js
+function objectFactory() {
+  const obj = new Object();
+  const Constructor = [].shift.call(arguments);
+  obj.__proto__ = Constructor.prototype;
+  const ret = Constructor.apply(obj, arguments);
+  return typeof ret === 'object' ? ret : obj;
+}
+```
+
+## 实现 call
+
+- 将函数设为对象的属性
+- 执⾏&删除这个函数
+- 指定 this 到函数并传⼊给定参数执⾏函数
+- 如果不传⼊参数，默认指向为 window
+
+```js
+Function.prototype.myCall = function(context) {
+  //此处没有考虑context⾮object情况
+  context.fn = this;
+  let args = [];
+  for (let i = 1, len = arguments.length; i < len; i++) {
+    args.push(arguments[i]);
+  }
+  context.fn(...args);
+  let result = context.fn(...args);
+  delete context.fn;
+  return result;
+};
+```
+
+## 实现 apply
+
+```js
+Function.prototype.myapply = function(context, arr) {
+  var context = Object(context) || window;
+  context.fn = this;
+  var result;
+  if (!arr) {
+    result = context.fn();
+  } else {
+    var args = [];
+    for (var i = 0, len = arr.length; i < len; i++) {
+      args.push('arr[' + i + ']');
+    }
+    // eval计算一个字符串
+    result = eval('context.fn(' + args + ')');
+  }
+  delete context.fn;
+  return result;
+};
+```
+
+## 实现 bind
+
+```js
+Function.prototype.myBind = function(thisArg) {
+  if (typeof this !== 'function') {
+    return;
+  }
+  var _self = this;
+  var args = Array.prototype.slice.call(arguments, 1);
+  var fnNop = function() {}; // 定义一个空函数
+  var fnBound = function() {
+    var _this = this instanceof _self ? this : thisArg;
+
+    return _self.apply(
+      _this,
+      args.concat(Array.prototype.slice.call(arguments)),
+    );
+  };
+  // 维护原型关系
+  if (this.prototype) {
+    fnNop.prototype = this.prototype;
+  }
+
+  fnBound.prototype = new fnNop();
+
+  return fnBound;
+};
+```
+
+## 模拟 Object.create
+
+```js
+function create(proto) {
+  function F() {}
+  F.prototype = proto;
+  return new F();
+}
+```

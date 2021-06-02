@@ -355,7 +355,7 @@ console.log(combinationSum2([100, 10, 20, 70, 60, 10, 50], 80));
 // 返回 [[10,10,60],[10,20,50],[10,70],[20,60]]
 ```
 
-## 8、转换数组 key
+## 9、转换数组 key
 
 ```js
 const oldList = [
@@ -403,4 +403,217 @@ function getList(oldList) {
     return pre;
   }, []);
 }
+```
+
+## 算法复杂度
+
+### O(1)
+
+- 的常数阶的复杂度，这种复杂度⽆论数据规模 n 如何增⻓，计算时间是不变的。
+
+```js
+const increment = n => n++;
+```
+
+### O(n)
+
+- 线性复杂度，随着数据规模 n 的增⻓，计算时间也会随着 n 线性增⻓。
+
+典型的 O(n)的例⼦就是线性查找。
+
+```js
+const linearSearch = (arr, target) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+};
+```
+
+### O(logn)
+
+- 对数复杂度，随着问题规模 n 的增⻓，计算时间也会随着 n 对数级增⻓。
+
+典型的例⼦是⼆分查找法。
+
+在⼆分查找法的代码中，通过 while 循环，成 2 倍数的缩减搜索范围，也就是说需要经过 log2^n 次即可跳出循环。
+事实上在实际项⽬中， O(logn) 是⼀个⾮常好的时间复杂度，⽐如当 n=100 的数据规模时，⼆分查找只需要 7 次，线性查找需要 100 次，这对于计算机⽽⾔差距不⼤，但是当有 10 亿的数据规模的时候，⼆分查找依然只需要 30 次，⽽线性查找需要惊⼈的 10 亿次， O(logn) 时间复杂度的算法随着数据规模的增⼤，它的优势就越明显。
+
+```js
+function binarySearch(arr, target) {
+  let max = target.length - 1;
+  let min = 0;
+  while (min <= max) {
+    let mid = Math.floor((max + min) / 2);
+    if (target > arr[mid]) {
+      min = mid + 1;
+    } else if (target < arr[mid]) {
+      max = mid - 1;
+    } else {
+      return mid;
+    }
+  }
+  return -1;
+}
+```
+
+### O(nlogn)
+
+- 线性对数复杂度，随着数据规模 n 的增⻓，计算时间也会随着 n 呈线性对数级增⻓。
+
+这其中典型代表就是归并排序
+
+```js
+// 融合两个有序数组，这里实际上是将数组 arr 分为两个数组
+function mergeArray(arr, first, mid, last, temp) {
+  let i = first;
+  let m = mid;
+  let j = mid + 1;
+  let n = last;
+  let k = 0;
+  while (i <= m && j <= n) {
+    if (arr[i] < arr[j]) {
+      temp[k++] = arr[i++];
+    } else {
+      temp[k++] = arr[j++];
+    }
+  }
+  while (i <= m) {
+    temp[k++] = arr[i++];
+  }
+  while (j <= n) {
+    temp[k++] = arr[j++];
+  }
+  for (let l = 0; l < k; l++) {
+    arr[first + l] = temp[l];
+  }
+  return arr;
+}
+
+// 递归实现归并排序
+function mergeSort(arr, first, last, temp) {
+  // first arr的下标0
+  // last arr的最后一位下标
+
+  if (first < last) {
+    let mid = Math.floor((first + last) / 2); //取中间下标
+    mergeSort(arr, first, mid, temp); // 左子数组有序
+    mergeSort(arr, mid + 1, last, temp); // 右子数组有序
+    arr = mergeArray(arr, first, mid, last, temp);
+  }
+  return arr;
+}
+
+let arr = [10, 3, 1, 5, 11, 2, 0, 6, 3, -2];
+let SortedArr = mergeSort(arr, 0, arr.length - 1, []);
+console.log(SortedArr);
+```
+
+### O(n²)
+
+- 平⽅级复杂度，典型情况是当存在双重循环的时候，即把 O(n) 的代码再嵌套循环⼀遍，它的时间复杂度就是 O(n²)了，代表应⽤是冒泡排序算法。
+
+```js
+function bubleSort(arra) {
+  let temp;
+  for (let i = 0; i < arra.length; i++) {
+    for (let j = 0; j < arra.length - i - 1; j++) {
+      if (arra[j] > arra[j + 1]) {
+        temp = arra[j];
+        arra[j] = arra[j + 1];
+        arra[j + 1] = temp;
+      }
+    }
+  }
+  return arra;
+}
+```
+
+### 希尔排序
+
+```js
+function shellSort(arr) {
+  var len = arr.length,
+    temp,
+    gap = 1;
+  console.time('希尔排序耗时:');
+  while (gap < len / 5) {
+    //动态定义间隔序列
+    gap = gap * 5 + 1;
+  }
+  for (gap; gap > 0; gap = Math.floor(gap / 5)) {
+    for (var i = gap; i < len; i++) {
+      temp = arr[i];
+      for (var j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+        arr[j + gap] = arr[j];
+      }
+      arr[j + gap] = temp;
+    }
+  }
+  console.timeEnd('希尔排序耗时:');
+  return arr;
+}
+
+console.log(shellSort([10, 3, 1, 5, 11, 2, 0, 6, 3, -2]));
+```
+
+### 快速排序
+
+- 从数组中选择中间⼀项作为主元；
+- 创建两个指针，左边⼀个指向数组的第⼀项，右边指向数组最后⼀项。移动左指针直到我们找到⼀个⽐主元⼤的元素，接着，移动右指针直到找到⼀个⽐主元⼩的元素。然后交换它们，重复这个过程，直到左指针超过了右指针。这个过程是的⽐主元⼩的值都排在了主元之前，⽽⽐主元⼤的值都排在了主元之后，这⼀步叫划分操作。
+- 接着，算法对划分的⼩数组（较主元⼩的值组成的⼦数组，以及较主元⼤的值组成的⼦数组）重复之前的两个步骤，直⾄数组以完全排序。
+
+```js
+// 默认状态下的⽐较函数
+function compare(a, b) {
+  if (a === b) {
+    return 0;
+  }
+  return a < b ? -1 : 1;
+}
+function swap(array, a, b) {
+  [array[a], array[b]] = [array[b], array[a]];
+}
+// 分治函数
+function partition(array, left, right) {
+  // ⽤index取中间值⽽⾮splice
+  const pivot = array[Math.floor((right + left) / 2)];
+  let i = left;
+  let j = right;
+  while (i <= j) {
+    while (compare(array[i], pivot) === -1) {
+      i++;
+    }
+    while (compare(array[j], pivot) === 1) {
+      j--;
+    }
+    if (i <= j) {
+      swap(array, i, j);
+      i++;
+      j--;
+    }
+  }
+  return i;
+}
+// 快排函数
+function quick(array, left, right) {
+  let index;
+  if (array.length > 1) {
+    index = partition(array, left, right);
+    if (left < index - 1) {
+      quick(array, left, index - 1);
+    }
+    if (index < right) {
+      quick(array, index, right);
+    }
+  }
+  return array;
+}
+function quickSort(array) {
+  return quick(array, 0, array.length - 1);
+}
+
+console.log(quickSort([10, 3, 1, 5, 11, 2, 0, 6, 3, -2]));
 ```
