@@ -621,6 +621,87 @@ module,
   });
 ```
 
+### resolve.modules
+
+- resolve.modules ⽤于配置 webpack 去哪些⽬录下寻找第三⽅模块，默认是['node_modules']
+  寻找第三⽅模块，默认是在当前项⽬⽬录下的 node_modules ⾥⾯去找，如果没有找到，就会去上⼀级
+  ⽬录../node_modules 找，再没有会去../../node_modules 中找，以此类推，和 Node.js 的模块寻找机制很类似。
+
+如果我们的第三⽅模块都安装在了项⽬根⽬录下，就可以直接指明这个路径。
+
+```js
+module.exports = {
+  resolve: {
+    modules: [path.resolve(__dirname, './node_modules')],
+  },
+};
+```
+
+### 优化 resolve.alias 配置
+
+resolve.alias 配置通过别名来将原导⼊路径映射成⼀个新的导⼊路径
+拿 react 为例，我们引⼊的 react 库，⼀般存在两套代码
+
+- cjs 采⽤ commonJS 规范的模块化代码
+- umd 已经打包好的完整代码，没有采⽤模块化，可以直接执⾏
+
+默认情况下，webpack 会从⼊⼝⽂件./node_modules/bin/react/index 开始递归解析和处理依赖的
+⽂件。我们可以直接指定⽂件，避免这处的耗时。
+
+```js
+
+  alias: {
+    "@": path.join(__dirname, "./pages"),
+    react: path.resolve(
+    __dirname,
+    "./node_modules/react/umd/react.production.min.js"
+    ),
+    "react-dom": path.resolve(
+    __dirname,
+    "./node_modules/react-dom/umd/react-dom.production.min.js"
+    )
+  }
+
+  resolve: {
+    alias: {
+      "@assets": path.resolve(__dirname, "../src/images/"),
+    },
+  },
+
+  //html-css中使⽤
+  .sprite3 {
+    background: url("~@assets/s3.png");
+  }
+
+```
+
+### resolve.extensions
+
+resolve.extensions 在导⼊语句没带⽂件后缀时，webpack 会⾃动带上后缀后，去尝试查找⽂件是否存
+在。
+默认值：extensions:['.js','.json','.jsx','.ts']
+
+- 后缀尝试列表尽量的⼩
+- 导⼊语句尽量的带上后缀。
+
+### 使⽤ externals 优化 cdn 静态资源
+
+```js
+
+  module.exports = {
+  //...
+    externals: {
+    //jquery通过script引⼊之后，全局中即有了 jQuery 变量
+     'jquery': 'jQuery'
+    }
+  }
+
+  output:{
+    publicPath: '//cdnURL.com', //指定存放JS⽂件的CDN地址 静态资源文件
+  }
+
+```
+
 ## 推荐一遍小配置
 
 ```js
