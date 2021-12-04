@@ -111,7 +111,7 @@ function test4(value: any) {
 // );
 
 const PromiseMy = () => {
-  return <h1>look</h1>;
+  return <h1>look test</h1>;
 };
 
 export default PromiseMy;
